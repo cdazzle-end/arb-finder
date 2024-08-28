@@ -12,6 +12,7 @@ use bigdecimal::BigDecimal;
 // use token_graph::TokenGraph;
 // use token_graph::calculate_swap;
 use futures::future::join_all;
+mod constants;
 mod fee_book;
 mod asset_registry_2;
 mod liq_pool_registry_2;
