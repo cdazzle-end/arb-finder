@@ -749,7 +749,7 @@ pub fn parse_stable_lps_polkadot(chains: Vec<&str>) -> Vec<Value>{
         .into_iter()
         .map(|chain| {
             // let path_string = format!("../../../polkadot_assets/lps/lp_registry/{}_stable_lps.json", chain);
-                    let path_string: String = format!("{}{}_stable_lps.json", constants::LP_REGISTRY_FOLDER, chain);
+            let path_string: String = format!("{}{}_stable_lps.json", constants::LP_REGISTRY_FOLDER, chain);
             let path = Path::new(&path_string);
             let mut buf = vec![];
             let mut file = File::open(path)?;
