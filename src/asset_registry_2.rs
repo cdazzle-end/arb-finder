@@ -133,7 +133,8 @@ impl AssetRegistry2{
         let parsed_files = chains
             .into_iter()
             .map(|chain| {
-                let path_string = format!("../../../polkadot_assets/assets/asset_registry/{}_assets.json", chain);
+                // let path_string = format!("../../../polkadot_assets/assets/asset_registry/{}_assets.json", chain);
+                let path_string: String = format!("{}{}_assets.json", constants::ASSET_REGISTRY_FOLDER, chain);
                 // println!("path_string: {}", path_string);
                 let path = Path::new(&path_string);
                 let mut buf = vec![];
@@ -146,7 +147,8 @@ impl AssetRegistry2{
             .unwrap();
 
         
-        let path = Path::new("../../../polkadot_assets/assets/ignore_list.json");
+        // let path = Path::new("../../../polkadot_assets/assets/ignore_list.json");
+        let path: String = format!("{}ignore_list.json", constants::ASSET_REGISTRY_FOLDER);
         let mut buf = vec![];
         let mut file = File::open(path).unwrap();
         file.read_to_end(&mut buf).unwrap();

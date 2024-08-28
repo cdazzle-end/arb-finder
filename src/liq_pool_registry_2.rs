@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::cell::RefCell;
 use std::rc::Rc;
+use crate::constants;
 use crate::asset_registry_2::{AssetRegistry2, Asset};
 // use crate::token::{Token, AssetKeyType, TokenData};
 
@@ -223,6 +224,7 @@ impl LiqPoolRegistry2{
                 .into_iter()
                 .map(|chain| {
                     // let path_string = format!("../lps/{}/lps.json", chain);
+                    let path_string: String = format!("{}{}lp.json", constants::LP_REGISTRY_FOLDER, chain);
                     let path_string = format!("../../../polkadot_assets/lps/lp_registry/{}_lps.json", chain);
                     let path = Path::new(&path_string);
                     let mut buf = vec![];
