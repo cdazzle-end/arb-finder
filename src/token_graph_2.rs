@@ -2489,10 +2489,16 @@ impl GraphNode{
 
 }
 
-// pub fn filter_dex
+/**
+ * 
+ */
+pub fn check_filter_requirements(dex_pool: &DexPool, input_amount: BigInt, calculated_output_amount: BigInt) -> bool {
 
+    true
+}
+
+// println!("Calculating V2 DEX swap");
 pub fn calculate_v2_dex_swap_formula(dex_pool: &DexPool, input_amount: BigInt) -> BigInt {
-    // println!("Calculating V2 DEX swap");
     // dex_pool.get_pool_nodes().iter().for_each(|node| {
     //     println!("Node: {}", node.borrow().get_asset_key_and_symbol());
     // });
