@@ -19,7 +19,7 @@ use std::ops::{Add, Mul};
 use std::rc::Rc;
 use std::str::FromStr;
 use std::vec;
-use crate::liq_pool_registry_2::{LiquidityPool, TickData, TokenRate, BncStableData, CexData, DexData, DexV3Data, StableData};
+use crate::liq_pool_registry_2::{BncStableData, CexData, DexData, DexV3Data, LiquidityPool, Relay, StableData, TickData, TokenRate};
 // use crate::{asset_registry::{AssetRegistry, Asset}};
 use crate::AssetRegistry2;
 use crate::asset_registry_2::{Asset, AssetLocation, TokenData};
@@ -2137,9 +2137,39 @@ pub trait Pool {
         }
     }
 
+    fn get_chain_id(&self) -> u64 {
+        match &self.get_liquidity(){
+            LiquidityPool::Dex(pool_data) => pool_data.chain_id,
+            LiquidityPool::DexV3(pool_data) => pool_data.chain_id,
+            LiquidityPool::Stable(pool_data) => pool_data.chain_id,
+            LiquidityPool::BncStable(pool_data) => pool_data.chain_id,
+            _ => panic!("Tried to get chain id from Cex LiquidityPool"),
+        }
+    }
+
+
+
+    fn get_liquidity_stats(&self) -> Vec<BigInt> {
+        let pool_liquidity = match &self.get_liquidity(){
+            LiquidityPool::Dex(pool_data) => pool_data.pool_liquidity.clone(),
+            LiquidityPool::Stable(pool_data) => pool_data.pool_liquidity.clone(),
+            LiquidityPool::BncStable(pool_data) => pool_data.pool_liquidity.clone(),
+            _ => panic!("Tried to get liquidity stats from Cex or DexV3 LiquidityPool"),
+        };
+
+        pool_liquidity.iter().map(|&x| BigInt::from(x)).collect()
+    }
+
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer>;
 
-    fn get_chain_id(&self) -> u64;
+    fn get_relay(&self) -> Relay {
+        let relay = &self.get_pool_nodes().first().unwrap().borrow().get_relay_chain();
+        match relay.as_str() {
+            "polkadot" => Relay::Polkadot,
+            "kusama" => Relay::Kusama,
+            _ => panic!("Invalid relay: {}", relay),
+        }
+    }
 
 }
 
@@ -2152,10 +2182,6 @@ impl Pool for DexPool{
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer> {
         self.pool_nodes.clone()
     }
-
-    fn get_chain_id(&self) -> u64 {
-        self.get_pool_nodes().first().unwrap().borrow().get_chain_id()
-    }
 }
 impl Pool for DexV3Pool {
     fn get_liquidity(&self) -> &LiquidityPool {
@@ -2163,9 +2189,6 @@ impl Pool for DexV3Pool {
     }
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer> {
         self.pool_nodes.clone()
-    }
-    fn get_chain_id(&self) -> u64 {
-        self.get_pool_nodes().first().unwrap().borrow().get_chain_id()
     }
 
 }
@@ -2177,9 +2200,6 @@ impl Pool for StablePool{
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer> {
         self.pool_nodes.clone()
     }
-    fn get_chain_id(&self) -> u64 {
-        self.get_pool_nodes().first().unwrap().borrow().get_chain_id()
-    }
 }
 
 impl Pool for BncStablePool{
@@ -2188,9 +2208,6 @@ impl Pool for BncStablePool{
     }
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer> {
         self.pool_nodes.clone()
-    }
-    fn get_chain_id(&self) -> u64 {
-        self.get_pool_nodes().first().unwrap().borrow().get_chain_id()
     }
 }
 
@@ -2201,44 +2218,8 @@ impl Pool for StableSharePool{
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer> {
         self.pool_nodes.clone()
     }
-    fn get_chain_id(&self) -> u64 {
-        self.get_pool_nodes().first().unwrap().borrow().get_chain_id()
-    }
 }
 
-// impl AdjacentNodePair{
-//     pub fn new(adjacent_node: &GraphNodePointer, liquidity: Option<Liquidity>, pair_type: u64) -> AdjacentNodePair{
-//         AdjacentNodePair{
-//             adjacent_node: Rc::clone(adjacent_node),
-//             liquidity,
-//             pair_type
-//         }
-//     }
-//     pub fn get_dex_liquidity(&self) -> (u128, u128){
-//         match &self.liquidity.as_ref().unwrap(){
-//             Liquidity::Dex(dexLp) => (dexLp.base_liquidity, dexLp.adjacent_liquidity),
-//             _ => panic!("Tried to get dex liquidity from non-dex liquidity"),
-//         }
-//     }
-//     pub fn get_cex_liquidity_price(&self) -> (u128, u128){
-//         match &self.liquidity.as_ref().unwrap(){
-//             Liquidity::Cex(cexLp) => (cexLp.bid_price, cexLp.ask_price),
-//             _ => panic!("Tried to get cex liquidity from non-cex liquidity"),
-//         }
-//     }
-//     pub fn get_cex_liquidity_decimals(&self) -> (u128, u128){
-//         match &self.liquidity.as_ref().unwrap(){
-//             Liquidity::Cex(cexLp) => (cexLp.bid_decimals, cexLp.ask_decimals),
-//             _ => panic!("Tried to get cex liquidity from non-cex liquidity"),
-//         }
-//     }
-// }
-
-// impl PartialEq for GraphNode {
-//     fn eq(&self, other: &Self) -> bool {
-//         self.id == other.id
-//     }
-// }
 
 impl GraphNode{
     // Get pool from key of adjacent node
@@ -2502,13 +2483,32 @@ impl GraphNode{
 
 /// Checks if swap passes filter checks. 
 /// 
+/// # Returns
+/// 
+/// true - passes filter requirements
+/// false - fails, the swap needs to be filtered out
+/// 
 /// # Examples
 /// 
 /// HydraDX has a max % of pool tokens your allowed to trade in a single swap. Cannot remove more than 30% of liquidity in a swap
-pub fn check_filter_requirements(dex_pool: &DexPool, input_amount: BigInt, calculated_output_amount: BigInt) -> bool {
-    let input_asset = dex_pool.get_pool_nodes();
-    true
+pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_index: usize, input_amount: BigInt, calculated_output_amount: BigInt) -> bool {
+    let chain_id = dex_pool.get_chain_id();
+    let relay = dex_pool.get_relay();
+
+    match (relay, chain_id) {
+        (Relay::Polkadot, 2034) => {
+            let liquidity_stats = dex_pool.get_liquidity_stats();
+            let input_liquidity = liquidity_stats.get(input_index).unwrap();
+            let output_liquidity = liquidity_stats.get(output_index).unwrap();
+    
+            // Trade amount can not be more than 30% of pool token supply
+            let max_limit = BigInt::from(30) / BigInt::from(100);
+            !(input_amount > input_liquidity * max_limit.clone() || calculated_output_amount > output_liquidity * max_limit)
+        }
+        _ => true,
+    }
 }
+
 
 // println!("Calculating V2 DEX swap");
 pub fn calculate_v2_dex_swap_formula(dex_pool: &DexPool, input_amount: BigInt) -> BigInt {
@@ -2545,6 +2545,18 @@ pub fn calculate_v2_dex_swap_formula(dex_pool: &DexPool, input_amount: BigInt) -
     let slip_denominator = (input_reserve.clone() * BigInt::from(10000)) + amount_in_with_slippage.clone();
     let total_amount_out = slip_numerator.clone() / slip_denominator.clone();
     // println!("Amount in with slippage: {} | Slip num: {} | Slip den: {} | Total out: {} ", amount_in_with_slippage, slip_numerator, slip_denominator, total_amount_out);
+    
+    // If swap fails filter, set output to 0
+    if check_filter_requirements(
+        dex_pool, 
+        input_asset_index, 
+        output_asset_index, 
+        input_amount, 
+        total_amount_out.clone()
+    ) {
+        return BigInt::from(0)
+    }
+    
     total_amount_out
 }
 
