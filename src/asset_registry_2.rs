@@ -85,7 +85,8 @@ impl AssetRegistry2{
             .unwrap();
 
         
-        let path = Path::new("../assets/ignore_list.json");
+        // let path = Path::new("../assets/ignore_list.json");
+        let path = constants::ASSET_IGNORE_LIST;
         let mut buf = vec![];
         let mut file = File::open(path).unwrap();
         file.read_to_end(&mut buf).unwrap();
