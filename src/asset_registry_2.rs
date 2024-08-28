@@ -8,6 +8,7 @@ use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use serde::de::{Deserializer, Error, Visitor};
+use crate::constants;
 type AssetPointer = Rc<RefCell<Asset>>;
 
 #[derive(Debug)]
@@ -73,7 +74,9 @@ impl AssetRegistry2{
             .into_iter()
             .map(|chain| {
                 // let path_string = format!("../assets/{}/asset_registry.json", chain);
-                let path_string = format!("../../../polkadot_assets/assets/asset_registry/{}_assets.json", chain);
+                // let p_string = constants::ASSET_REGISTRY_FOLDER;
+                let path_string: String = format!("{}{}_assets.json", constants::ASSET_REGISTRY_FOLDER, chain);
+                // let path_string = format!("../../../polkadot_assets/assets/asset_registry/{}_assets.json", chain);
                 let path = Path::new(&path_string);
                 let mut buf = vec![];
                 let mut file = File::open(path)?;
