@@ -2489,9 +2489,11 @@ impl GraphNode{
 
 }
 
-/**
- * 
- */
+/// Checks if swap passes filter checks. 
+/// 
+/// # Examples
+/// 
+/// HydraDX has a max % of pool tokens your allowed to trade in a single swap. Cannot remove more than 30% of the 
 pub fn check_filter_requirements(dex_pool: &DexPool, input_amount: BigInt, calculated_output_amount: BigInt) -> bool {
 
     true
