@@ -2139,13 +2139,8 @@ pub trait Pool {
 
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer>;
 
-    // fn get_swap_fee(&self) -> Option<u128> {
-    //     match self.get_liquidity() {
-    //         LiquidityPool::Stable(stable_lp) => Some(stable_lp.swap_fee),
-    //         LiquidityPool::StableShare(stable_lp) => Some(stable_lp.swap_fee),
-    //         _ => None,
-    //     }
-    // }
+    fn get_chain_id(&self) -> u64;
+
 }
 
 impl Pool for DexPool{
@@ -2157,6 +2152,10 @@ impl Pool for DexPool{
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer> {
         self.pool_nodes.clone()
     }
+
+    fn get_chain_id(&self) -> u64 {
+        self.get_pool_nodes().first().unwrap().borrow().get_chain_id()
+    }
 }
 impl Pool for DexV3Pool {
     fn get_liquidity(&self) -> &LiquidityPool {
@@ -2164,6 +2163,9 @@ impl Pool for DexV3Pool {
     }
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer> {
         self.pool_nodes.clone()
+    }
+    fn get_chain_id(&self) -> u64 {
+        self.get_pool_nodes().first().unwrap().borrow().get_chain_id()
     }
 
 }
@@ -2175,6 +2177,9 @@ impl Pool for StablePool{
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer> {
         self.pool_nodes.clone()
     }
+    fn get_chain_id(&self) -> u64 {
+        self.get_pool_nodes().first().unwrap().borrow().get_chain_id()
+    }
 }
 
 impl Pool for BncStablePool{
@@ -2184,6 +2189,9 @@ impl Pool for BncStablePool{
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer> {
         self.pool_nodes.clone()
     }
+    fn get_chain_id(&self) -> u64 {
+        self.get_pool_nodes().first().unwrap().borrow().get_chain_id()
+    }
 }
 
 impl Pool for StableSharePool{
@@ -2192,6 +2200,9 @@ impl Pool for StableSharePool{
     }
     fn get_pool_nodes(&self) -> Vec<GraphNodePointer> {
         self.pool_nodes.clone()
+    }
+    fn get_chain_id(&self) -> u64 {
+        self.get_pool_nodes().first().unwrap().borrow().get_chain_id()
     }
 }
 
@@ -2493,9 +2504,9 @@ impl GraphNode{
 /// 
 /// # Examples
 /// 
-/// HydraDX has a max % of pool tokens your allowed to trade in a single swap. Cannot remove more than 30% of the 
+/// HydraDX has a max % of pool tokens your allowed to trade in a single swap. Cannot remove more than 30% of liquidity in a swap
 pub fn check_filter_requirements(dex_pool: &DexPool, input_amount: BigInt, calculated_output_amount: BigInt) -> bool {
-
+    let input_asset = dex_pool.get_pool_nodes();
     true
 }
 
