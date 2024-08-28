@@ -223,7 +223,6 @@ impl LiqPoolRegistry2{
         let mut parsed_files = chains
                 .into_iter()
                 .map(|chain| {
-                    // let path_string = format!("../lps/{}/lps.json", chain);
                     let path_string: String = format!("{}{}_lps.json", constants::LP_REGISTRY_FOLDER, chain);
                     let path = Path::new(&path_string);
                     let mut buf = vec![];
@@ -445,7 +444,6 @@ impl LiqPoolRegistry2{
     pub fn build_liqpool_registry_polkadot(asset_registry: &AssetRegistry2) -> LiqPoolRegistry2{
         let chains = vec![ "aca", "bnc_polkadot", "glmr", "hdx", "para"];
         let relay = Relay::Polkadot;
-        // let chains = vec![ "kar", "bnc", "movr", "hko", "sdn", "kucoin", "mgx", "bsx"];
         let mut parsed_files = chains
                 .into_iter()
                 .map(|chain| {
