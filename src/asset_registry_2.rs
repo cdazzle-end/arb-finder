@@ -144,7 +144,7 @@ impl AssetRegistry2{
             .unwrap();
 
         
-        let path: String = format!("{}ignore_list.json", constants::ASSET_REGISTRY_FOLDER);
+        let path: String = format!("{}", constants::ASSET_IGNORE_LIST);
         let mut buf = vec![];
         let mut file = File::open(path).unwrap();
         file.read_to_end(&mut buf).unwrap();
