@@ -734,7 +734,8 @@ impl TokenGraph2{
                                     } else if dex_id.contains("omnipool"){ // Need this for hydraDx
                                         "Omnipool".to_string()
                                     } else {
-                                        dex_id.to_string()
+                                        // dex_id.to_string()
+                                        panic!("Dex ID !== solar and would have set PathData.dexType to something beside Dex. Need to handle")
                                     }
                                 },
                                 None => "Dex".to_string()
@@ -748,6 +749,7 @@ impl TokenGraph2{
 
                             adjacent_node.borrow_mut().path_value_types.push(path_value_type);
 
+                            // REVIEW Should set path_data.dex_type to ABI. Keep path_type as Dex
                             let new_path_data: PathData = PathData{
                                 path_type: dex_type,
                                 lp_id: pool_id.clone(), // Just for contract address on evm
