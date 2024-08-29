@@ -799,7 +799,7 @@ impl TokenGraph2{
                             // Dex type should be PathType::DexV3
                             // abi should be type of v3 pool
                             // PathData.path_type should be abi
-                            let dex_type = dex_pool.get_dex_type().unwrap();
+                            // let dex_type = dex_pool.get_dex_type().unwrap();
                             let dex_abi = dex_pool.get_abi().unwrap();
                             let pool_id = dex_pool.get_pool_id();
                             let new_path_data: PathData = PathData{
