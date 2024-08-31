@@ -260,12 +260,12 @@ pub async fn async_search_best_path_a_to_b(start_key: String, destination_key: S
     let mut start_nodes: Vec<Rc<RefCell<GraphNode>>> = vec![];
 
     // For testing, only one node ***
-    // for start_asset in all_start_assets{
-    //     if(!start_asset.borrow().is_cex_token()){
-    //         let new_start_node = &graph.get_node(start_asset.borrow().get_map_key()).clone();
-    //         start_nodes.push(Rc::clone(&new_start_node));
-    //     }
-    // }
+    for start_asset in all_start_assets{
+        if(!start_asset.borrow().is_cex_token()){
+            let new_start_node = &graph.get_node(start_asset.borrow().get_map_key()).clone();
+            start_nodes.push(Rc::clone(&new_start_node));
+        }
+    }
     start_nodes.push(Rc::clone(&start_node));
     // *****************************************
     let mut handles = Vec::new();
