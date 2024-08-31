@@ -629,7 +629,11 @@ pub fn one_search_default_polkadot(){
 }
 
 
-// ******************* PROBLEM FUNCTION CALLS THIS FUNCTION *************
+/// ******************* PROBLEM FUNCTION CALLS THIS FUNCTION *************
+/// Build new token graph for specified relay
+/// 
+/// Runs search and returns best path
+/// 
 pub async fn search_best_path_a_to_b_async(relay: String, start_key: String, destination_key: String, input_amount: BigDecimal) -> (BigDecimal, String, Vec<PathNode>){
     let mut asset_registry;
     let lp_registry;
@@ -654,6 +658,8 @@ pub async fn search_best_path_a_to_b_async(relay: String, start_key: String, des
 }
 
 /// Called by 'search_polkadot' -> 'async_search_default_polkadot'
+/// 
+/// Builds new graph for polkadot
 /// 
 /// Normal search, from start node to all destination nodes
 pub async fn search_best_path_a_to_b_polkadot(start_key: String, destination_key: String, input_amount: BigDecimal) -> (BigDecimal, String, Vec<PathNode>){
