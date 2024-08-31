@@ -73,6 +73,7 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<M
 
     let asset_location: AssetLocation = parse_asset_location(&matching_asset.clone().unwrap()).unwrap();
     
+    let asset_map_by_location: HashMap<AssetLocation, Vec<MyAsset>> = HashMap::new();
 
     println!("{:?}", asset_location);
 
