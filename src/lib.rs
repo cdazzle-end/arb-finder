@@ -1016,7 +1016,7 @@ pub async fn print_asset_keys(start_key: String){
 }
 
 pub fn test_utils(){
-    utils::get_asset_registry(Relay::Polkadot)
+    utils::get_xcm_assets(2000, "test_id", Relay::Polkadot);
 }
 
 

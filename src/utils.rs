@@ -8,7 +8,7 @@ use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use serde::de::{Deserializer, Error, Visitor};
-use crate::asset_registry_2::{Asset, AssetLocation, MyAsset};
+use crate::asset_registry_2::{Asset, AssetLocation, MyAsset, TokenData};
 use crate::constants;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -25,24 +25,7 @@ pub enum Relay {
 // }
 
 
-pub fn get_asset_registry(relay: Relay){
-
-    let chains = vec!["aca", "bnc_polkadot", "glmr", "hdx", "para", "other_polkadot", "glmr_evm", "asset_hub_polkadot"];
-    let parsed_files = chains
-        .into_iter()
-        .map(|chain| {
-            let path_string: String = format!("{}{}_assets.json", constants::ASSET_REGISTRY_FOLDER, chain);
-            // println!("path_string: {}", path_string);
-            let path = Path::new(&path_string);
-            let mut buf = vec![];
-            let mut file = File::open(path)?;
-            file.read_to_end(&mut buf)?;
-            let parsed = serde_json::from_str(str::from_utf8(&buf).unwrap())?;
-            Ok(parsed)
-        })
-        .collect::<Result<Vec<Value>, io::Error>>()
-        .unwrap();
-
+pub fn get_asset_registry(relay: Relay) -> Vec<MyAsset> {
     let all_assets_file_location = match relay {
         Relay::Polkadot => format!("{}{}", constants::ASSET_REGISTRY_FOLDER, constants::ALL_POLKADOT_ASSETS),
         Relay::Kusama => format!("{}{}", constants::ASSET_REGISTRY_FOLDER, constants::ALL_KUSAMA_ASSETS)
@@ -51,29 +34,28 @@ pub fn get_asset_registry(relay: Relay){
     let mut buf = vec![];
     let mut file = File::open(path).unwrap();
     file.read_to_end(&mut buf);
-    // let parsed: Value = serde_json::from_str(str::from_utf8(&buf).unwrap()).unwrap();
     
     let parsed_assets: Vec<MyAsset> = serde_json::from_str(str::from_utf8(&buf).unwrap()).unwrap();
+    parsed_assets
+}
 
-    println!("{:?}", parsed_assets);
+pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Vec<MyAsset>{
+    let asset_registry: Vec<MyAsset> = get_asset_registry(relay);
 
-    // let mut asset_map: HashMap<String, Vec<AssetPointer>> = HashMap::new();
-    // let mut asset_location_map: HashMap<AssetLocation, Vec<AssetPointer>> = HashMap::new();
+    let chain_assets: Vec<MyAsset> = asset_registry
+        .into_iter()
+        .filter(|asset| {
+            match asset.tokenData.clone() {
+                TokenData::MyAsset(asset_data) => asset_data.chain == (chain_id as u64),
+                _ => false
+            }
+        })
+        .collect();
 
-    // let asset_array: Vec<MyAsset> = serde_json::from_value(parsed_assets).unwrap();
-    // for asset in asset_array{
-    //     let asset_location = parse_asset_location(&asset);
-    //     // println!("{:?}", asset.tokenData);
-    //     let mut new_asset = Rc::new(RefCell::new(Asset::new(asset.tokenData, asset_location)));
-    //     let map_key = new_asset.borrow().get_map_key();
+    println!("{:?}", chain_assets);
 
-    //     asset_map.entry(map_key).or_insert(vec![]).push(new_asset.clone());
-
-    //     if let Some(location) = new_asset.borrow().asset_location.clone() {
-    //         asset_location_map.entry(location).or_insert(vec![]).push(new_asset.clone());
-    //     };
-    // }
-
+    chain_assets
+    
 
 }
 
