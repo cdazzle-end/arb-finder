@@ -107,6 +107,32 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<M
     matching_asset
 }
 
+pub fn get_assets_at_location(asset: MyAsset, relay: Relay) -> Vec<MyAsset> {
+    let asset_registry: Vec<MyAsset> = get_asset_registry(relay);
+    let mut asset_map_by_location: HashMap<AssetLocation, Vec<MyAsset>> = HashMap::new();
+
+    for asset in asset_registry.clone() {
+        if asset.hasLocation {
+            let asset_location: AssetLocation = parse_asset_location(&asset).unwrap();
+
+            asset_map_by_location.entry(asset_location)
+            .or_insert(Vec::new())
+            .push(asset)
+        }
+    }
+
+    let asset_location: AssetLocation = parse_asset_location(&asset.clone()).unwrap();
+
+    let all_assets_at_location = asset_map_by_location.get(&asset_location).unwrap();
+
+    println!("All assets at location: ");
+    for asset in all_assets_at_location.clone() {
+        println!("{:#?}", asset);
+    }
+
+    all_assets_at_location.clone()
+}
+
 pub fn get_asset_by_chain_and_id(chain_id: usize, asset_id: &str, relay: Relay) -> MyAsset {
     let asset_registry: Vec<MyAsset> = get_asset_registry(relay);
 

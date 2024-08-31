@@ -1024,7 +1024,10 @@ pub fn test_utils(){
 
     let test_asset = utils::get_asset_by_asset_key(start_key, Relay::Polkadot);
 
-    println!("Asset: {:#?}", test_asset);
+    let assets_at_location = utils::get_assets_at_location(test_asset, Relay::Polkadot);
+    // let assets_at_location = utils::get_xcm_assets(chain_id, asset_id, relay)
+
+    println!("Asset: {:#?}", assets_at_location);
 
 
 }
