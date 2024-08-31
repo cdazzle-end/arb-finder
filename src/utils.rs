@@ -55,11 +55,15 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<M
     let mut asset_map_by_location: HashMap<AssetLocation, Vec<MyAsset>> = HashMap::new();
 
     for asset in chain_assets.clone() {
-        let asset_location: AssetLocation = parse_asset_location(&asset).unwrap();
-    
-        asset_map_by_location.entry(asset_location)
+        if asset.hasLocation {
+            let asset_location: AssetLocation = parse_asset_location(&asset).unwrap();
+
+            asset_map_by_location.entry(asset_location)
             .or_insert(Vec::new())
             .push(asset)
+        }
+        
+
     }
 
     println!("Searching for ID: {}", asset_id);
@@ -75,10 +79,20 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<M
 
     let asset_location: AssetLocation = parse_asset_location(&matching_asset.clone().unwrap()).unwrap();
     
-
+    // Output the groups
+    for (location, group) in asset_map_by_location.iter() {
+        println!("Location: {:?}, Tokens: {:?}", location, group);
+    }
 
 
     println!("{:?}", asset_location);
+
+    let all_assets_at_location = asset_map_by_location.get(&asset_location);
+
+    println!("All assets at location: ");
+    for asset in all_assets_at_location.unwrap() {
+        println!("{:#?}", asset);
+    }
 
     matching_asset
 }
