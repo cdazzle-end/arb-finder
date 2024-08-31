@@ -62,15 +62,19 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<M
 
     println!("Searching for ID: {}", asset_id);
 
+    let input_asset_id_value: Value = serde_json::from_str(asset_id).unwrap_or(Value::Null);
+
     let matching_asset = chain_assets.into_iter().find(|asset| {
         match &asset.tokenData {
-            TokenData::MyAsset(asset_data) => asset_data.localId == asset_id.to_string(),
+            TokenData::MyAsset(asset_data) => asset_data.localId == input_asset_id_value,
             _ => false
         }
     });
+
+    let asset_location: AssetLocation = parse_asset_location(&matching_asset.clone().unwrap()).unwrap();
     
 
-    println!("{:?}", matching_asset);
+    println!("{:?}", asset_location);
 
     matching_asset
 }
