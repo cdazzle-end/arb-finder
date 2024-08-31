@@ -225,9 +225,12 @@ pub async fn async_search_default_kusama(){
 
 /// ****** PROBLEM FUNCTION ***********
 /// 
-/// Build graph for specified relay
+/// Build graph for specified relay to get node data
 /// 
-/// * Currently only addes specified start node to all start nodes
+/// Get's all start nodes
+/// 
+/// Aynchronously runs 'search_best_path_a_to_b_async' for each start node to destination node with specified input
+/// - 'search_best_path_a_to_b_async' builds a new token graph for each run
 pub async fn async_search_best_path_a_to_b(start_key: String, destination_key: String, input_amount: BigDecimal, relay: String){
     let mut asset_registry: AssetRegistry2;
     let lp_registry: LiqPoolRegistry2;
@@ -628,12 +631,9 @@ pub fn one_search_default_polkadot(){
     }
 }
 
-
-/// ******************* PROBLEM FUNCTION CALLS THIS FUNCTION *************
 /// Build new token graph for specified relay
 /// 
 /// Runs search and returns best path
-/// 
 pub async fn search_best_path_a_to_b_async(relay: String, start_key: String, destination_key: String, input_amount: BigDecimal) -> (BigDecimal, String, Vec<PathNode>){
     let mut asset_registry;
     let lp_registry;
