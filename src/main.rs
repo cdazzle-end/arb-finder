@@ -82,7 +82,6 @@ async fn main() {
                 async_search_default_kusama().await;
             },
             "search_polkadot" => {
-                let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
                 async_search_default_polkadot().await;
             },
             "search_polkadot_sync" => {
