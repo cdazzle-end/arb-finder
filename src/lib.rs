@@ -332,6 +332,8 @@ pub async fn reworked_async_search_default_polkadot(){
     let start_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
     let destination_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
 
+    let start_asset = utils::get_asset_by_asset_key(start_key, Relay::Polkadot);
+
     let small_input = BigDecimal::from_f64(0.5 as f64).unwrap();
     let medium_input = BigDecimal::from_f64(2 as f64).unwrap();
     let big_input = BigDecimal::from_f64(5 as f64).unwrap();
@@ -1016,12 +1018,15 @@ pub async fn print_asset_keys(start_key: String){
 }
 
 pub fn test_utils(){
-    let test_asset = utils::get_asset_by_chain_and_id(2000, "{\"NativeAssetId\":{\"Token\":\"DOT\"}}", Relay::Polkadot);
-    let asset_key = utils::get_asset_key(test_asset);
+    let start_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
+    // let test_asset = utils::get_asset_by_chain_and_id(2000, "{\"NativeAssetId\":{\"Token\":\"DOT\"}}", Relay::Polkadot);
+    // let asset_key = utils::get_asset_key(test_asset);
 
-    println!("Asset key: {}", asset_key);
+    let test_asset = utils::get_asset_by_asset_key(start_key, Relay::Polkadot);
 
-    
+    println!("Asset: {:#?}", test_asset);
+
+
 }
 
 

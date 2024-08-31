@@ -39,6 +39,19 @@ pub fn get_asset_registry(relay: Relay) -> Vec<MyAsset> {
     parsed_assets
 }
 
+pub fn get_asset_by_asset_key(asset_key: String, relay: Relay) -> MyAsset {
+    let asset_registry = get_asset_registry(relay);
+
+    let matching_asset: Option<MyAsset> = asset_registry
+    .into_iter()
+    .find(|asset| {
+        let asset_registry_key = get_asset_key(asset.clone());
+        asset_registry_key == asset_key
+    });
+
+    matching_asset.unwrap()
+}
+
 pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<MyAsset>{
     let asset_registry: Vec<MyAsset> = get_asset_registry(relay);
     let mut asset_map_by_location: HashMap<AssetLocation, Vec<MyAsset>> = HashMap::new();
