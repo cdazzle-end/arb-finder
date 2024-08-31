@@ -95,7 +95,7 @@ async fn main() {
             },
             "p_1" => {
                 let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
-                search_best_path_a_to_b_async_polkadot(asset_key.clone(), asset_key, BigDecimal::from(1)).await;
+                search_best_path_a_to_b_polkadot(asset_key.clone(), asset_key, BigDecimal::from(1)).await;
             },
             "test" => {
                 let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();

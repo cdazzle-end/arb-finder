@@ -223,7 +223,11 @@ pub async fn async_search_default_kusama(){
     ResultLogger::log_results_default_kusama(highest_medium_value_path, start_node_asset_name, medium_input);
 }
 
-// ****** PROBLEM FUNCTION ***********
+/// ****** PROBLEM FUNCTION ***********
+/// 
+/// Build graph for specified relay
+/// 
+/// * Currently only addes specified start node to all start nodes
 pub async fn async_search_best_path_a_to_b(start_key: String, destination_key: String, input_amount: BigDecimal, relay: String){
     let mut asset_registry: AssetRegistry2;
     let lp_registry: LiqPoolRegistry2;
@@ -241,6 +245,7 @@ pub async fn async_search_best_path_a_to_b(start_key: String, destination_key: S
     } else{
         panic!("Unknown relay: {}", relay);
     }
+
     // lp_registry.display_stable_pools();
     let list = AdjacencyTable2::build_table_2(&lp_registry);
     let graph = TokenGraph2::build_graph_2(asset_registry, list);
@@ -268,11 +273,9 @@ pub async fn async_search_best_path_a_to_b(start_key: String, destination_key: S
     for node in start_nodes{
         let relay_parameter = relay.clone();
         let key = node.borrow().get_asset_key();
-        // println!("Searching for {}", key);
         let dest_key = destination_key.clone();
         let amount = input_amount.clone();
 
-        // let future = task::spawn(search_best_path_a_to_b_async(key, destination_key.clone(), input_amount));
         let handle = task::spawn(async move {
             search_best_path_a_to_b_async(relay_parameter, key, dest_key, amount).await
         });
@@ -320,13 +323,13 @@ pub async fn async_search_best_path_a_to_b(start_key: String, destination_key: S
 
 }
 
-///  *Works
+///  *** Works ***
 /// 
 /// Called by 'search_polkadot'. Search 2000 DOT -> 2000 DOT
 /// 
 /// Start - Get's all assets with the same location as start asset
 /// 
-/// Run 'search_best_path_a_to_b_async_polkadot' with each start asset
+/// Asynchronously run 'search_best_path_a_to_b_async_polkadot' with each start asset from each input value
 pub async fn async_search_default_polkadot(){
     let start_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
     let destination_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
@@ -363,9 +366,8 @@ pub async fn async_search_default_polkadot(){
         // println!("Searching for {}", key);
         let dest_key = destination_key.clone();
         let amount = big_input.clone();
-        // let future = task::spawn(search_best_path_a_to_b_async(key, destination_key.clone(), input_amount));
         let handle = task::spawn(async move {
-            search_best_path_a_to_b_async_polkadot(key, dest_key, amount).await
+            search_best_path_a_to_b_polkadot(key, dest_key, amount).await
         });
         big_handles.push(handle);
     }
@@ -378,7 +380,7 @@ pub async fn async_search_default_polkadot(){
         let amount = medium_input.clone();
         // let future = task::spawn(search_best_path_a_to_b_async(key, destination_key.clone(), input_amount));
         let handle = task::spawn(async move {
-            search_best_path_a_to_b_async_polkadot(key, dest_key, amount).await
+            search_best_path_a_to_b_polkadot(key, dest_key, amount).await
         });
         medium_handles.push(handle);
     }
@@ -391,7 +393,7 @@ pub async fn async_search_default_polkadot(){
         let amount = small_input.clone();
         // let future = task::spawn(search_best_path_a_to_b_async(key, destination_key.clone(), input_amount));
         let handle = task::spawn(async move {
-            search_best_path_a_to_b_async_polkadot(key, dest_key, amount).await
+            search_best_path_a_to_b_polkadot(key, dest_key, amount).await
         });
         small_handles.push(handle);
     }
@@ -651,9 +653,10 @@ pub async fn search_best_path_a_to_b_async(relay: String, start_key: String, des
     (input_amount, display_string, return_path)
 }
 
-// All searches at once. MAIN default search calls this one
+/// Called by 'search_polkadot' -> 'async_search_default_polkadot'
 /// 
-pub async fn search_best_path_a_to_b_async_polkadot(start_key: String, destination_key: String, input_amount: BigDecimal) -> (BigDecimal, String, Vec<PathNode>){
+/// Normal search, from start node to all destination nodes
+pub async fn search_best_path_a_to_b_polkadot(start_key: String, destination_key: String, input_amount: BigDecimal) -> (BigDecimal, String, Vec<PathNode>){
     let mut asset_registry = AssetRegistry2::build_asset_registry_polkadot();
     let lp_registry = LiqPoolRegistry2::build_liqpool_registry_polkadot(&mut asset_registry);
     let list = AdjacencyTable2::build_table_2(&lp_registry);
@@ -732,7 +735,7 @@ pub async fn test_polkadot_lps(){
     // // lp_registry.display_liq_pools()
     // let list = AdjacencyTable2::build_table_2(&lp_registry);
     // let graph = TokenGraph2::build_graph_2(asset_registry, list);
-    search_best_path_a_to_b_async_polkadot(start_key, destination_key, BigDecimal::from_f64(1.0).unwrap()).await;
+    search_best_path_a_to_b_polkadot(start_key, destination_key, BigDecimal::from_f64(1.0).unwrap()).await;
 }
 
 pub async fn test_v3_swap(){
