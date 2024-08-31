@@ -39,7 +39,7 @@ pub fn get_asset_registry(relay: Relay) -> Vec<MyAsset> {
     parsed_assets
 }
 
-pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Vec<MyAsset>{
+pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<MyAsset>{
     let asset_registry: Vec<MyAsset> = get_asset_registry(relay);
 
     let chain_assets: Vec<MyAsset> = asset_registry
@@ -52,10 +52,17 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Vec<MyAs
         })
         .collect();
 
-    println!("{:?}", chain_assets);
-
-    chain_assets
+    let matching_asset = chain_assets.into_iter().find(|asset| {
+        match &asset.tokenData {
+            TokenData::MyAsset(asset_data) => asset_data.localId == asset_id,
+            _ => false
+        }
+    });
     
+
+    println!("{:?}", matching_asset);
+
+    matching_asset
 
 }
 
