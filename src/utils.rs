@@ -41,6 +41,17 @@ pub fn get_asset_registry(relay: Relay) -> Vec<MyAsset> {
 
 pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<MyAsset>{
     let asset_registry: Vec<MyAsset> = get_asset_registry(relay);
+    let mut asset_map_by_location: HashMap<AssetLocation, Vec<MyAsset>> = HashMap::new();
+
+    for asset in asset_registry.clone() {
+        if asset.hasLocation {
+            let asset_location: AssetLocation = parse_asset_location(&asset).unwrap();
+
+            asset_map_by_location.entry(asset_location)
+            .or_insert(Vec::new())
+            .push(asset)
+        }
+    }
 
     let chain_assets: Vec<MyAsset> = asset_registry
         .into_iter()
@@ -52,19 +63,7 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<M
         })
         .collect();
 
-    let mut asset_map_by_location: HashMap<AssetLocation, Vec<MyAsset>> = HashMap::new();
 
-    for asset in chain_assets.clone() {
-        if asset.hasLocation {
-            let asset_location: AssetLocation = parse_asset_location(&asset).unwrap();
-
-            asset_map_by_location.entry(asset_location)
-            .or_insert(Vec::new())
-            .push(asset)
-        }
-        
-
-    }
 
     println!("Searching for ID: {}", asset_id);
 
