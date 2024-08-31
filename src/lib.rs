@@ -326,7 +326,7 @@ pub async fn async_search_best_path_a_to_b(start_key: String, destination_key: S
 /// 
 /// Start - Get's all assets with the same location as start asset
 /// 
-/// 
+/// Run 'search_best_path_a_to_b_async_polkadot' with each start asset
 pub async fn async_search_default_polkadot(){
     let start_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
     let destination_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
@@ -342,11 +342,11 @@ pub async fn async_search_default_polkadot(){
 
     let start_asset_location = start_node.borrow().get_asset_location().unwrap();
     let all_start_assets = &graph.asset_registry.get_assets_at_location(start_asset_location);
-    let mut start_nodes = vec![];
+    let mut all_start_nodes = vec![];
     for start_asset in all_start_assets{
         if !start_asset.borrow().is_cex_token() {
             let new_start_node = &graph.get_node(start_asset.borrow().get_map_key()).clone();
-            start_nodes.push(Rc::clone(&new_start_node));
+            all_start_nodes.push(Rc::clone(&new_start_node));
         }
     }
 
@@ -358,8 +358,8 @@ pub async fn async_search_default_polkadot(){
     let big_input = BigDecimal::from_f64(5 as f64).unwrap();
     let mut big_handles = Vec::new();
 
-    for node in start_nodes.clone(){
-        let key = node.borrow().get_asset_key();
+    for start_node in all_start_nodes.clone(){
+        let key = start_node.borrow().get_asset_key();
         // println!("Searching for {}", key);
         let dest_key = destination_key.clone();
         let amount = big_input.clone();
@@ -370,8 +370,8 @@ pub async fn async_search_default_polkadot(){
         big_handles.push(handle);
     }
 
-    for node in start_nodes.clone(){
-        let key = node.borrow().get_asset_key();
+    for start_node in all_start_nodes.clone(){
+        let key = start_node.borrow().get_asset_key();
         // println!("Searching for {}", key);
         let dest_key = destination_key.clone();
 
@@ -383,8 +383,8 @@ pub async fn async_search_default_polkadot(){
         medium_handles.push(handle);
     }
 
-    for node in start_nodes.clone(){
-        let key = node.borrow().get_asset_key();
+    for start_node in all_start_nodes.clone(){
+        let key = start_node.borrow().get_asset_key();
         // println!("Searching for {}", key);
         let dest_key = destination_key.clone();
 
@@ -652,6 +652,7 @@ pub async fn search_best_path_a_to_b_async(relay: String, start_key: String, des
 }
 
 // All searches at once. MAIN default search calls this one
+/// 
 pub async fn search_best_path_a_to_b_async_polkadot(start_key: String, destination_key: String, input_amount: BigDecimal) -> (BigDecimal, String, Vec<PathNode>){
     let mut asset_registry = AssetRegistry2::build_asset_registry_polkadot();
     let lp_registry = LiqPoolRegistry2::build_liqpool_registry_polkadot(&mut asset_registry);
