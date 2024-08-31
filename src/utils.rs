@@ -52,9 +52,19 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<M
         })
         .collect();
 
+    for asset in chain_assets.clone() {
+        let token_data = match asset.tokenData {
+            TokenData::MyAsset(data) => data,
+            _ => panic!("Reading non MyAsset"),
+        };
+        println!("{}", token_data.localId);
+    }
+
+    println!("Searching for ID: {}", asset_id);
+
     let matching_asset = chain_assets.into_iter().find(|asset| {
         match &asset.tokenData {
-            TokenData::MyAsset(asset_data) => asset_data.localId == asset_id,
+            TokenData::MyAsset(asset_data) => asset_data.localId == asset_id.to_string(),
             _ => false
         }
     });
@@ -63,7 +73,6 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<M
     println!("{:?}", matching_asset);
 
     matching_asset
-
 }
 
 fn parse_asset_location(parsed_asset_registry_object: &MyAsset) -> Option<AssetLocation> {

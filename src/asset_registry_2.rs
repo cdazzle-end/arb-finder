@@ -59,7 +59,7 @@ pub struct CexAssetJson{
     contractAddress: String,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct MyAsset {
     pub tokenData: TokenData,
     pub hasLocation: bool,
