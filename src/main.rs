@@ -55,7 +55,7 @@ async fn main() {
             "search_best_path_a_to_b_polkadot" => {
                 let key_1 = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
                 let key_2 = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
-                let input_amount_bd = BigDecimal::from_str("1")
+                let input_amount_bd = BigDecimal::from_str("2")
                     .expect("Input amount must be a valid number");
                 async_search_best_path_a_to_b(key_1.to_string(), key_2.to_string(), input_amount_bd, "polkadot".to_string()).await;
             },
