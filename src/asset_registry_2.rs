@@ -51,12 +51,12 @@ pub struct MyAssetJson {
 }
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq)]
 pub struct CexAssetJson{
-    exchange: String,
-    assetTicker: String,
-    name: String,
-    chain: String,
-    precision: u64,
-    contractAddress: String,
+    pub exchange: String,
+    pub assetTicker: String,
+    pub name: String,
+    pub chain: String,
+    pub precision: u64,
+    pub contractAddress: String,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]

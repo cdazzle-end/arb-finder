@@ -1016,7 +1016,12 @@ pub async fn print_asset_keys(start_key: String){
 }
 
 pub fn test_utils(){
-    utils::get_xcm_assets(2000, "{\"NativeAssetId\":{\"Token\":\"DOT\"}}", Relay::Polkadot);
+    let test_asset = utils::get_asset_by_chain_and_id(2000, "{\"NativeAssetId\":{\"Token\":\"DOT\"}}", Relay::Polkadot);
+    let asset_key = utils::get_asset_key(test_asset);
+
+    println!("Asset key: {}", asset_key);
+
+    
 }
 
 

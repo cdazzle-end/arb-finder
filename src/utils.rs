@@ -63,8 +63,6 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<M
         })
         .collect();
 
-
-
     println!("Searching for ID: {}", asset_id);
 
     let input_asset_id_value: Value = serde_json::from_str(asset_id).unwrap_or(Value::Null);
@@ -94,6 +92,35 @@ pub fn get_xcm_assets(chain_id: usize, asset_id: &str, relay: Relay) -> Option<M
     }
 
     matching_asset
+}
+
+pub fn get_asset_by_chain_and_id(chain_id: usize, asset_id: &str, relay: Relay) -> MyAsset {
+    let asset_registry: Vec<MyAsset> = get_asset_registry(relay);
+
+    let input_asset_id_value: Value = serde_json::from_str(asset_id).unwrap_or(Value::Null);
+
+    let matching_asset: Option<MyAsset> = asset_registry
+        .into_iter()
+        .find(|asset| {
+            match asset.tokenData.clone() {
+                TokenData::MyAsset(asset_data) => asset_data.chain == (chain_id as u64) && asset_data.localId == input_asset_id_value,
+                _ => false
+            }
+        });
+
+
+    println!("Get asset: {} | {}", chain_id, asset_id);
+    println!("Matching asset: {:#?}", matching_asset);
+
+    matching_asset.unwrap()
+}
+
+pub fn get_asset_key(asset: MyAsset) -> String {
+    let asset_key = match asset.tokenData {
+        TokenData::MyAsset(data) => data.chain.to_string() + &data.localId.to_string(),
+        TokenData::CexAsset(data) => data.exchange.to_string() + &data.assetTicker.to_string()
+    };
+    return asset_key
 }
 
 fn parse_asset_location(parsed_asset_registry_object: &MyAsset) -> Option<AssetLocation> {
