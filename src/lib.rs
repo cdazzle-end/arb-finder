@@ -324,6 +324,8 @@ pub async fn async_search_best_path_a_to_b(start_key: String, destination_key: S
 /// 
 /// Called by 'search_polkadot'. Search 2000 DOT -> 2000 DOT
 /// 
+/// Start - Get's all assets with the same location as start asset
+/// 
 /// 
 pub async fn async_search_default_polkadot(){
     let start_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
