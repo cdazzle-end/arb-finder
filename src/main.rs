@@ -81,7 +81,7 @@ async fn main() {
                 async_search_default_kusama().await;
             },
             "search_polkadot" => {
-                async_search_default_polkadot().await;
+                // async_search_default_polkadot().await;
             },
             "search_polkadot_sync" => {
                 println!("Running polkadot search SYNC. One by one");
@@ -94,11 +94,12 @@ async fn main() {
             },
             "p_1" => {
                 let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
-                search_best_path_a_to_b_polkadot(asset_key.clone(), asset_key, BigDecimal::from(1)).await;
+                // search_best_path_a_to_b_polkadot(asset_key.clone(), asset_key, BigDecimal::from(1)).await;
             },
             "test" => {
-                let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
-                test_graph().await
+                // let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
+                // test_graph().await
+                test_utils();
             },
             _ => {
                 eprintln!("Error: search_best_path_a_to_b incorrect parameters"); // Write an error message to stderr

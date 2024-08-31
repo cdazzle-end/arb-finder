@@ -38,16 +38,16 @@ pub enum TokenData{
 
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq)]
 pub struct MyAssetJson {
-    network: String,
-    chain: u64,
-    localId: serde_json::Value,
-    name: String,
-    symbol: String,
-    decimals: String,
-    minimalBalance: Option<String>,
-    isFrozen: Option<bool>,
-    deposit: Option<String>,
-    contractAddress: Option<String>,
+    pub network: String,
+    pub chain: u64,
+    pub localId: serde_json::Value,
+    pub name: String,
+    pub symbol: String,
+    pub decimals: String,
+    pub minimalBalance: Option<String>,
+    pub isFrozen: Option<bool>,
+    pub deposit: Option<String>,
+    pub contractAddress: Option<String>,
 }
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq)]
 pub struct CexAssetJson{
@@ -60,10 +60,10 @@ pub struct CexAssetJson{
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct MyAssetRegistryObject {
-    tokenData: TokenData,
-    hasLocation: bool,
-    tokenLocation: Option<serde_json::Value>,
+pub struct MyAsset {
+    pub tokenData: TokenData,
+    pub hasLocation: bool,
+    pub tokenLocation: Option<serde_json::Value>,
 }
 // vec!["kar", "bnc", "movr", "hko", "sdn"];
 // New asset registry files for statemine, crust, kintsugi...
@@ -89,7 +89,7 @@ impl AssetRegistry2{
         let mut file = File::open(path).unwrap();
         file.read_to_end(&mut buf).unwrap();
         let parsed_ignore_file: Value = serde_json::from_str(str::from_utf8(&buf).unwrap()).unwrap();
-        let ignore_list_assets: Vec<MyAssetRegistryObject> = serde_json::from_value(parsed_ignore_file).unwrap();
+        let ignore_list_assets: Vec<MyAsset> = serde_json::from_value(parsed_ignore_file).unwrap();
         let ignore_list_locations: Vec<String> = ignore_list_assets.into_iter().map(|asset| {
             let ignore_asset_location = parse_asset_location(&asset);
             let ignore_asset = Rc::new(RefCell::new(Asset::new(asset.tokenData.clone(), ignore_asset_location)));
@@ -101,7 +101,7 @@ impl AssetRegistry2{
         let mut asset_map: HashMap<String, Vec<AssetPointer>> = HashMap::new();
         let mut asset_location_map: HashMap<AssetLocation, Vec<AssetPointer>> = HashMap::new();
         for parsed in parsed_files {
-            let asset_array: Vec<MyAssetRegistryObject> = serde_json::from_value(parsed).unwrap();
+            let asset_array: Vec<MyAsset> = serde_json::from_value(parsed).unwrap();
             for asset in asset_array{
                 let asset_location = parse_asset_location(&asset);
                 let new_asset = Rc::new(RefCell::new(Asset::new(asset.tokenData, asset_location)));
@@ -147,7 +147,7 @@ impl AssetRegistry2{
         let mut file = File::open(path).unwrap();
         file.read_to_end(&mut buf).unwrap();
         let parsed_ignore_file: Value = serde_json::from_str(str::from_utf8(&buf).unwrap()).unwrap();
-        let ignore_list_assets: Vec<MyAssetRegistryObject> = serde_json::from_value(parsed_ignore_file).unwrap();
+        let ignore_list_assets: Vec<MyAsset> = serde_json::from_value(parsed_ignore_file).unwrap();
         let ignore_list_locations: Vec<String> = ignore_list_assets.iter().map(|asset| {
             let ignore_asset_location = parse_asset_location(&asset);
             let ignore_asset = Rc::new(RefCell::new(Asset::new(asset.tokenData.clone(), ignore_asset_location)));
@@ -163,7 +163,7 @@ impl AssetRegistry2{
         let mut asset_map: HashMap<String, Vec<AssetPointer>> = HashMap::new();
         let mut asset_location_map: HashMap<AssetLocation, Vec<AssetPointer>> = HashMap::new();
         for parsed in parsed_files {
-            let asset_array: Vec<MyAssetRegistryObject> = serde_json::from_value(parsed).unwrap();
+            let asset_array: Vec<MyAsset> = serde_json::from_value(parsed).unwrap();
             for asset in asset_array{
                 let asset_location = parse_asset_location(&asset);
                 // println!("{:?}", asset.tokenData);
@@ -410,11 +410,11 @@ impl Asset{
     }
 }
 
-fn parse_asset_registry_object(asset: &Value) -> MyAssetRegistryObject {
+fn parse_asset_registry_object(asset: &Value) -> MyAsset {
     serde_json::from_value(asset.clone()).unwrap()
 }
 
-fn parse_asset_location(parsed_asset_registry_object: &MyAssetRegistryObject) -> Option<AssetLocation> {
+fn parse_asset_location(parsed_asset_registry_object: &MyAsset) -> Option<AssetLocation> {
     match &parsed_asset_registry_object.tokenLocation {
         Some(location) if location.is_string() => Some(AssetLocation::new(true, None, None)),
         Some(location) if location.is_object() => {
