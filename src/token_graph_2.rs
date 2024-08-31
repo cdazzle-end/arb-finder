@@ -512,7 +512,11 @@ impl TokenGraph2{
 
     }
 
-    /// Get's all assets with the same location as destination asset
+    /// Get's all assets with the same location as destination asset as destination nodes
+    /// 
+    /// When reaching destination node, sets the best path value of it and then doesn't add it to the node queue
+    /// 
+    /// At the end, goes through all destination node's and returns their best paths
     pub fn find_best_route(&self, asset_key_1: String, asset_key_2: String, input_amount: BigDecimal) -> (String, Vec<Rc<RefCell<GraphNode>>>) {
         // println!("STARTING INPUT AMOUNT: {}", input_amount);
         let starting_node = &self.get_node(asset_key_1.clone()).clone();
