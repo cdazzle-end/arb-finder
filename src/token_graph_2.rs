@@ -517,12 +517,8 @@ impl TokenGraph2{
         // println!("STARTING INPUT AMOUNT: {}", input_amount);
         let starting_node = &self.get_node(asset_key_1.clone()).clone();
         let relay = starting_node.borrow().get_relay_chain();
-        // let formatted_input = &input_amount * f64::powi(10.0, starting_node.borrow().get_asset_decimals() as i32);
-        // let decimal_place_multiplier = 
         let formatted_input = &input_amount * BigDecimal::from_f64(f64::powi(10.0, starting_node.borrow().get_asset_decimals() as i32)).unwrap();
-        // println!("Formatted input: {}", formatted_input);
         starting_node.borrow_mut().best_path_value = formatted_input.to_bigint().unwrap();
-        // println!("Starting node best path value: {}", starting_node.borrow().best_path_value);
         starting_node.borrow_mut().path_values.push(input_amount);
 
         let path_data: PathData = PathData{
