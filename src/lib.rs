@@ -66,6 +66,7 @@ type NodePath = Vec<Rc<RefCell<GraphNode>>>;
 
 // }
 
+/// REPLACE THIS WITH
 pub async fn async_search_default_kusama(){
     let start_key = "2000{\"NativeAssetId\":{\"Token\":\"KSM\"}}".to_string();
     let destination_key = "2000{\"NativeAssetId\":{\"Token\":\"KSM\"}}".to_string();
