@@ -1006,7 +1006,7 @@ pub async fn fallback_search_a_to_b(start_key: String, destination_key: String, 
 }
 
 pub async fn print_asset_keys(start_key: String){
-    let mut asset_registry = AssetRegistry2::build_asset_registry();
+    let mut asset_registry = AssetRegistry2::build_asset_registry();    
     let lp_registry = LiqPoolRegistry2::build_liqpool_registry(&mut asset_registry);
     lp_registry.display_stable_pools();
     let list = AdjacencyTable2::build_table_2(&lp_registry);
