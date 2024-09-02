@@ -977,8 +977,6 @@ pub async fn fallback_search_a_to_b(start_key: String, destination_key: String, 
         asset_registry = AssetRegistry2::build_asset_registry_polkadot();
         lp_registry = LiqPoolRegistry2::build_liqpool_registry_polkadot(&mut asset_registry);
     } else {
-        // asset_registry = AssetRegistry2::build_asset_registry();
-        // lp_registry = LiqPoolRegistry2::build_liqpool_registry(&mut asset_registry);
         panic!("Unknown relay: {}", relay);
     }
 
