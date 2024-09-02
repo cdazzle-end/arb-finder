@@ -7,3 +7,9 @@ pub const XCM_FEE_BOOK: &str = "C:/Users/dazzl/CodingProjects/substrate/xcm-test
 pub const ALL_POLKADOT_ASSETS: &str = "allAssetsPolkadotCollected.json";
 pub const ALL_KUSAMA_ASSETS: &str = "allAssetsKusamaCollected.json";
 // pub const POLKADOT_ASSETS_FILE: &str = format!("{}{}", &ASSET_REGISTRY_FOLDER, &ALL_POLKADOT_ASSETS).as_str();
+
+pub const KUSAMA_ASSET_CHAINS: &'static [&'static str] = &["aca", "bnc_polkadot", "glmr", "hdx", "para", "other_polkadot", "glmr_evm", "asset_hub_polkadot"];
+pub const POLKADOT_ASSET_CHAINS: &'static [&'static str] = &["aca", "bnc_polkadot", "glmr", "hdx", "para", "other_polkadot", "glmr_evm", "asset_hub_polkadot"];
+
+pub const POLKADOT_START_NODE: &str = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}"; // Acala node
+pub const KUSAMA_START_NODE: &str = "2000{\"NativeAssetId\":{\"Token\":\"KSM\"}}"; // Karura node

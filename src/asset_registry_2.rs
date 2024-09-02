@@ -8,7 +8,7 @@ use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use serde::de::{Deserializer, Error, Visitor};
-use crate::constants;
+use crate::{constants, Relay};
 type AssetPointer = Rc<RefCell<Asset>>;
 
 #[derive(Debug)]
@@ -124,7 +124,7 @@ impl AssetRegistry2{
         }
     }
 
-    pub fn build_asset_registry_polkadot() -> AssetRegistry2{
+    pub fn build_asset_registry_polkadot(relay: Relay) -> AssetRegistry2{
         let chains = vec!["aca", "bnc_polkadot", "glmr", "hdx", "para", "other_polkadot", "glmr_evm", "asset_hub_polkadot"];
         let parsed_files = chains
             .into_iter()
@@ -409,7 +409,82 @@ impl Asset{
         }
     }
 }
+impl MyAsset {
+    pub fn new(token_data: TokenData, asset_location: Option<AssetLocation>) -> Asset{
+        Asset{token_data, asset_location}
+    }
+    pub fn display_asset(&self){
+        match &self.tokenData{
+            TokenData::MyAsset(data) => print!("{}", data.chain.to_string() + &data.name.to_string()),
+            TokenData::CexAsset(data) => print!("{}", data.exchange.to_string() + &data.assetTicker.to_string())
+        }
+    }
+    pub fn get_map_key(&self) -> String{
+        match &self.tokenData{
+            TokenData::MyAsset(data) => data.chain.to_string() + &data.localId.to_string(),
+            TokenData::CexAsset(data) => data.exchange.to_string() + &data.assetTicker.to_string()
+        }
+    }
+    pub fn get_asset_name(&self) -> &str {
+        match &self.tokenData {
+            TokenData::MyAsset(data) => &data.name,
+            TokenData::CexAsset(data) => &data.name,
+        }
+    }
 
+    pub fn get_asset_symbol(&self) -> &str {
+        match &self.tokenData {
+            TokenData::MyAsset(data) => &data.symbol,
+            TokenData::CexAsset(data) => &data.assetTicker,
+        }
+    }
+    pub fn get_relay_chain(&self) -> String {
+        match &self.tokenData {
+            TokenData::MyAsset(data) => data.network.clone(),
+            TokenData::CexAsset(data) => data.chain.clone(),
+        }
+    }
+
+    
+
+    pub fn get_ticker_symbol(&self) -> &str {
+        match &self.tokenData {
+            TokenData::MyAsset(data) => &data.symbol,
+            TokenData::CexAsset(data) => &data.assetTicker,
+        }
+    }
+    pub fn get_chain_id(&self) -> Option<u64> {
+        match &self.tokenData {
+            TokenData::MyAsset(data) => Some(data.chain),
+            TokenData::CexAsset(_) => None,
+        }
+    }
+    pub fn get_exchange(&self) -> Option<&str> {
+        match &self.tokenData {
+            TokenData::MyAsset(_) => None,
+            TokenData::CexAsset(data) => Some(&data.exchange),
+        }
+    }
+    pub fn get_local_id(&self) -> Option<&serde_json::Value>{
+        match &self.tokenData {
+            TokenData::MyAsset(data) => Some(&data.localId),
+            TokenData::CexAsset(data) => None
+        }
+    }
+    pub fn get_asset_decimals(&self) -> u64{
+        // self.tokenData.decimals.parse::<u64>().unwrap()
+        match &self.tokenData {
+            TokenData::MyAsset(data) => data.decimals.parse::<u64>().unwrap(),
+            TokenData::CexAsset(data) => data.precision
+        }
+    }
+    pub fn get_asset_contract_address(&self) -> Option<String>{
+        match &self.tokenData {
+            TokenData::MyAsset(data) => data.contractAddress.clone(),
+            TokenData::CexAsset(data) => Some(data.contractAddress.clone())
+        }
+    }
+}
 fn parse_asset_registry_object(asset: &Value) -> MyAsset {
     serde_json::from_value(asset.clone()).unwrap()
 }

@@ -12,6 +12,11 @@ use std::path::Path;
 use num::{BigInt, BigUint, CheckedAdd, CheckedDiv, CheckedMul, CheckedSub, FromPrimitive, Num, One, Signed, ToPrimitive, Zero};
 use bigdecimal::{BigDecimal};
 use std::str::FromStr;
+
+use utils::Relay;
+// use constants::*;
+// mod utils;
+// use utils::Relay;
 // use tokio::{join, task};
 // mod liq_pool;
 
@@ -28,6 +33,9 @@ use std::str::FromStr;
 //     let key_1 = "2000{\"ForeignAssetId\":\"0\"}".to_string();
 //     let key_1 = "2023\"MOVR\"".to_string();
 //     let key_1 = "2000{\"NativeAssetId\":{\"Token\":\"KSM\"}}".to_string();
+// cargo run target_search polkadot "2000{`\`"NativeAssetId`\`":{`\`"Token\`":`\`"DOT`\`"}}" "2000{`\`"NativeAssetId`\`":{`\`"Token\`":`\`"DOT`\`"}}"  1 
+// cargo run fallback_search polkadot "2000{`\`"NativeAssetId`\`":{`\`"Token\`":`\`"DOT`\`"}}" "2000{`\`"NativeAssetId`\`":{`\`"Token\`":`\`"DOT`\`"}}"  1
+
 
 #[tokio::main]
 async fn main() {
@@ -35,71 +43,68 @@ async fn main() {
 
     if args.len() > 1 {
         match args[1].as_str() {
-            // "async_search" => async_search().await,
-            "search_best_path_a_to_b_kusama" if args.len() == 5 => {
-                let key_1 = &args[2];
-                let key_2 = &args[3];
-                let input_amount_str = &args[4];
+            // Main function
+            // Runs a search from specified start node to destination node for the input amount.
+            // Input: Relay, start key, dest key, input amount
+            "target_search" if args.len() == 6 => {
+                let relay: Relay = Relay::from_str(&args[2]);
+                let start_key = &args[3];
+                let destination_key = &args[4];
+                let input_amount_str = &args[5];
+                println!("Relay {:?} | start: {} | destination: {} | input amount: {}",relay, start_key, destination_key, input_amount_str);
                 let input_amount_bd = BigDecimal::from_str(input_amount_str)
                     .expect("Input amount must be a valid number");
-                async_search_best_path_a_to_b(key_1.to_string(), key_2.to_string(), input_amount_bd, "kusama".to_string()).await;
+                run_and_log_target_search(start_key.clone(), destination_key.clone(), input_amount_bd, relay).await;
             },
-            "search_best_path_a_to_b_polkadot" if args.len() == 5 => {
-                let key_1 = &args[2];
-                let key_2 = &args[3];
-                let input_amount_str = &args[4];
+            /// Same as target search, but saves logs results in fallback log folder
+            "fallback_search" if args.len() == 6 => {
+                let relay: Relay = Relay::from_str(&args[2]);
+                let start_key = &args[3];
+                let destination_key = &args[4];
+                let input_amount_str = &args[5];
+                println!("Relay {:?} | start: {} | destination: {} | input amount: {}",relay, start_key, destination_key, input_amount_str);
+                
                 let input_amount_bd = BigDecimal::from_str(input_amount_str)
                     .expect("Input amount must be a valid number");
-                async_search_best_path_a_to_b(key_1.to_string(), key_2.to_string(), input_amount_bd, "polkadot".to_string()).await;
+                run_and_log_fallback_search(relay, start_key.to_string(), destination_key.to_string(), input_amount_bd).await;
             },
-            "search_best_path_a_to_b_polkadot" => {
-                let key_1 = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
-                let key_2 = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
-                let input_amount_bd = BigDecimal::from_str("2")
-                    .expect("Input amount must be a valid number");
-                async_search_best_path_a_to_b(key_1.to_string(), key_2.to_string(), input_amount_bd, "polkadot".to_string()).await;
+            // Input: Relay, Input Amount. --- Run a fresh arb from relay start node to end node, with specified input or default amount if ommitted
+            "default_search" => {
+                let relay: Relay = Relay::from_str(&args[2]);
+                let asset_key = match relay {
+                    Relay::Polkadot => constants::POLKADOT_START_NODE,
+                    Relay::Kusama => constants::KUSAMA_START_NODE,
+                };
+                let input_amount_bd = if args.len() > 3 {
+                    BigDecimal::from_str(&args[3])
+                        .expect("Input amount must be a valid number")
+                } else {
+                    BigDecimal::from(1) // Default value if no amount is provided
+                };
+                target_search(asset_key.to_string(), asset_key.to_string(), input_amount_bd, relay).await;
             },
-            "fallback_search_a_to_b_kusama" if args.len() == 5 => {
-                let key_1 = &args[2];
-                let key_2 = &args[3];
-                let input_amount_str = &args[4];
-                let input_amount_bd = BigDecimal::from_str(input_amount_str)
-                    .expect("Input amount must be a valid number");
-                fallback_search_a_to_b(key_1.to_string(), key_2.to_string(), input_amount_bd, "kusama".to_string()).await;
-            },
-            "fallback_search_a_to_b_polkadot" if args.len() == 5 => {
-                let key_1 = &args[2];
-                let key_2 = &args[3];
-                // let input_amount = &args[4];
-                let input_amount_str = &args[4];
-                let input_amount_bd = BigDecimal::from_str(input_amount_str)
-                    .expect("Input amount must be a valid number");
-
-                fallback_search_a_to_b(key_1.to_string(), key_2.to_string(), input_amount_bd, "polkadot".to_string()).await;
-            },
-            "search_kusama" => {
-                async_search_default_kusama().await;
-            },
-            "search_polkadot" => {
-                // async_search_default_polkadot().await;
+            
+            /// Run 3 searches from relay node to relay node with 3 different input values
+            "async_default_search" => {
+                let relay: Relay = Relay::from_str(&args[2]);
+                run_async_default_searches(relay).await;
             },
             "search_polkadot_sync" => {
                 println!("Running polkadot search SYNC. One by one");
                 let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
-                sync_search_default_polkadot();
-            },
-            "search_polkadot_one" => {
-                let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
-                one_search_default_polkadot();
+                search_default_sync(Relay::Polkadot);
             },
             "p_1" => {
                 let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
                 // search_best_path_a_to_b_polkadot(asset_key.clone(), asset_key, BigDecimal::from(1)).await;
             },
             "test" => {
-                // let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
-                // test_graph().await
-                test_utils();
+                let relay = Relay::Polkadot;
+                // default_target_search().await;
+                run_async_default_searches(relay).await;
+                // search_best_path_a_to_b_sync_polkadot().await
+                // single_search(relay);
+                // test_builder(relay)
             },
             _ => {
                 eprintln!("Error: search_best_path_a_to_b incorrect parameters"); // Write an error message to stderr
@@ -108,7 +113,7 @@ async fn main() {
         }
     } else {
         println!("No arguments provided. Running default function.");
-        async_search_default_kusama().await;
+        // async_search_default_kusama().await;
     }
 
 }

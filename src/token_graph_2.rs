@@ -19,7 +19,7 @@ use std::ops::{Add, Mul};
 use std::rc::Rc;
 use std::str::FromStr;
 use std::vec;
-use crate::liq_pool_registry_2::{BncStableData, CexData, DexData, DexV3Data, LiquidityPool, Relay, StableData, TickData, TokenRate};
+use crate::liq_pool_registry_2::{BncStableData, CexData, DexData, DexV3Data, LiqPoolRegistry2, LiquidityPool, Relay, StableData, TickData, TokenRate};
 // use crate::{asset_registry::{AssetRegistry, Asset}};
 use crate::AssetRegistry2;
 use crate::asset_registry_2::{Asset, AssetLocation, TokenData};
@@ -46,16 +46,20 @@ const MAX_Y_ITERATIONS_BNC: u64 = 255;
 const MAX_D_ITERATIONS_HDX: u64 = 64;
 const MAX_D_ITERATIONS_ACA: u64 = 255;
 
-
+pub struct ArbBestPath {
+    pub display_string: String,
+    pub best_path: Vec<GraphNodePointer>
+}
 
 pub struct TokenGraph2{
     pub node_map: HashMap<String, Vec<GraphNodePointer>>,
     pub asset_registry: AssetRegistry2,
+    pub liq_pool_registry: LiqPoolRegistry2,
     pub fee_book: TransferDepositFeeBook,
 }
 impl TokenGraph2{
 
-    pub fn build_graph_2(asset_registry: AssetRegistry2, adjacency_table: AdjacencyTable2) -> TokenGraph2{
+    pub fn build_graph_2(asset_registry: AssetRegistry2, liq_pool_registry: LiqPoolRegistry2,  adjacency_table: AdjacencyTable2) -> TokenGraph2{
         let graph_nodes: Vec<GraphNodePointer> = create_graph_nodes(&asset_registry);
         let node_map: HashMap<String, Vec<GraphNodePointer>> = create_node_map(&graph_nodes);
 
@@ -68,7 +72,7 @@ impl TokenGraph2{
         let xcm_transfer_and_deposit_fees = fs::read_to_string(xcm_transfer_and_deposit_fee_book.clone()).unwrap();
         let fee_book: TransferDepositFeeBook = serde_json::from_str(&xcm_transfer_and_deposit_fees).unwrap();
 
-        TokenGraph2{ node_map, asset_registry, fee_book }
+        TokenGraph2{ node_map, asset_registry, liq_pool_registry, fee_book }
     }
 
     //Get node from asset key
@@ -517,7 +521,7 @@ impl TokenGraph2{
     /// When reaching destination node, sets the best path value of it and then doesn't add it to the node queue
     /// 
     /// At the end, goes through all destination node's and returns their best paths
-    pub fn find_best_route(&self, asset_key_1: String, asset_key_2: String, input_amount: BigDecimal) -> (String, Vec<Rc<RefCell<GraphNode>>>) {
+    pub fn find_best_route(&self, asset_key_1: String, asset_key_2: String, input_amount: BigDecimal) -> ArbBestPath {
         // println!("STARTING INPUT AMOUNT: {}", input_amount);
         let starting_node = &self.get_node(asset_key_1.clone()).clone();
         let relay = starting_node.borrow().get_relay_chain();
@@ -1077,8 +1081,12 @@ impl TokenGraph2{
         let highest_value_path = highest_value_node.clone().unwrap().borrow().best_path.clone();
         let return_string = highest_value_node.unwrap().borrow().get_display_path().to_string();
 
-        let path_and_display: (String, Vec<Rc<RefCell<GraphNode>>>) = (return_string, highest_value_path);
-        path_and_display
+        let search_result = ArbBestPath {
+            display_string: return_string,
+            best_path: highest_value_path
+        };
+        search_result
+
     }
 
     pub fn get_asset_keys(&self, asset_key_2: String){
