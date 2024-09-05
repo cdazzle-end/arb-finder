@@ -48,7 +48,8 @@ pub fn build_asset_registry_old(relay: Relay) -> AssetRegistry2 {
 
 
 /// Build asset registry from data base
-/// - 
+/// - Ignore list will remove location property from asset
+/// - The asset can still be traded, just as if it was a non xcm token
 pub fn build_asset_registry(relay: Relay) -> AssetRegistry2 {
     let all_assets_file_location = match relay {
         Relay::Polkadot => format!("{}{}", constants::ASSET_REGISTRY_FOLDER, constants::ALL_POLKADOT_ASSETS),
@@ -93,7 +94,6 @@ pub fn build_asset_registry(relay: Relay) -> AssetRegistry2 {
 
             // Remove asset location so it wont be added to xcm adjacent nodes
             new_asset.borrow_mut().asset_location = None;
-            // continue;
         }
         asset_map.entry(map_key).or_insert(vec![]).push(new_asset.clone());
 
