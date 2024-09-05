@@ -2514,14 +2514,15 @@ pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_
             let max_limit = BigInt::from(30) / BigInt::from(100);
 
             // println!("Checking filter for HYDRA DX swap");
-            let pool_nodes = dex_pool.get_pool_nodes();
-            let input_node = pool_nodes.get(input_index).unwrap();
-            let output_node = pool_nodes.get(output_index).unwrap();
+
 
             let liquidity_stats = dex_pool.get_liquidity_stats();
             let input_liquidity = liquidity_stats.get(input_index).unwrap();
             let output_liquidity = liquidity_stats.get(output_index).unwrap();
             // println!(" {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
+            let pool_nodes = dex_pool.get_pool_nodes();
+            let input_node = pool_nodes.get(input_index).unwrap();
+            let output_node = pool_nodes.get(output_index).unwrap();
             let input_local_id = input_node.borrow().get_local_id();
             let output_local_id = output_node.borrow().get_local_id();
 
@@ -2529,11 +2530,11 @@ pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_
             // println!("Output local ID: '{}', type: {:?}", output_local_id, output_local_id.type_id());
 
             if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
-                println!("Found input erc and output LURPIS {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
-                println!("{} - Input amount", input_amount);
-                println!("{} - Input liqudity", input_liquidity);
-                println!("{} - output amount", calculated_output_amount);
-                println!("{} - output liqudity", output_liquidity);
+                // println!("Found input erc and output LURPIS {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
+                // println!("{} - Input amount", input_amount);
+                // println!("{} - Input liqudity", input_liquidity);
+                // println!("{} - output amount", calculated_output_amount);
+                // println!("{} - output liqudity", output_liquidity);
                 if (input_amount > input_liquidity * max_limit.clone() || calculated_output_amount > output_liquidity * max_limit.clone()) {
                     // println!("Failed MAX_INPUT/MAX_OUTPUT filter, removing");
                     println!("REMOVE");
@@ -2593,6 +2594,13 @@ pub fn calculate_v2_dex_swap_formula(dex_pool: &DexPool, input_amount: BigInt) -
     let total_amount_out = slip_numerator.clone() / slip_denominator.clone();
     // println!("Amount in with slippage: {} | Slip num: {} | Slip den: {} | Total out: {} ", amount_in_with_slippage, slip_numerator, slip_denominator, total_amount_out);
     
+    let pool_nodes = dex_pool.get_pool_nodes();
+    let input_node = pool_nodes.get(input_asset_index).unwrap();
+    let output_node = pool_nodes.get(output_asset_index).unwrap();
+    let input_local_id = input_node.borrow().get_local_id();
+    let output_local_id = output_node.borrow().get_local_id();
+
+
     // If swap fails filter, set output to 0
     if check_filter_requirements(
         dex_pool, 
@@ -2601,7 +2609,14 @@ pub fn calculate_v2_dex_swap_formula(dex_pool: &DexPool, input_amount: BigInt) -
         input_amount, 
         total_amount_out.clone()
     ) {
+        if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
+            println!("ERC -> LURPIS failed filter requirement")
+        }
         return BigInt::from(0)
+    }
+
+    if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
+        println!("ERC -> LURPIS PASSED filter requirement")
     }
     
     total_amount_out
