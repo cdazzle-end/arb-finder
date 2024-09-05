@@ -3,6 +3,7 @@
 // use crate::{LiqPoolRegistry, asset_registry, liq_pool_registry};
 // use crate::liq_pool_registry_2::LiqPoolRegistry2;
 use serde_json::Value;
+use std::any::Any;
 use std::fs;
 use num::{BigInt, BigUint, CheckedAdd, CheckedDiv, CheckedMul, CheckedSub, FromPrimitive, Num, One, Signed, ToPrimitive, Zero};
 use num::bigint::{ToBigInt, ToBigUint};
@@ -2519,8 +2520,14 @@ pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_
             let input_liquidity = liquidity_stats.get(input_index).unwrap();
             let output_liquidity = liquidity_stats.get(output_index).unwrap();
             // println!(" {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
-            if input_node.borrow().get_local_id() == "0"{
-                println!("Found input erc and output LURPIS {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
+            let input_local_id = input_node.borrow().get_local_id();
+            let output_local_id = output_node.borrow().get_local_id();
+
+            println!("Input local ID: '{}', type: {:?}", input_local_id, input_local_id.type_id());
+            println!("Output local ID: '{}', type: {:?}", output_local_id, output_local_id.type_id());
+
+            if input_local_id == "0" {
+                println!("Found input erc and output LURPIS {} | {}", input_local_id, output_local_id);
             }
 
             // Trade amount can not be more than 30% of pool token supply
