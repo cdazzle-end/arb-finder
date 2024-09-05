@@ -46,6 +46,9 @@ pub fn build_asset_registry_old(relay: Relay) -> AssetRegistry2 {
     }
 }
 
+
+/// Build asset registry from data base
+/// - 
 pub fn build_asset_registry(relay: Relay) -> AssetRegistry2 {
     let all_assets_file_location = match relay {
         Relay::Polkadot => format!("{}{}", constants::ASSET_REGISTRY_FOLDER, constants::ALL_POLKADOT_ASSETS),
@@ -65,13 +68,18 @@ pub fn build_asset_registry(relay: Relay) -> AssetRegistry2 {
     ignore_file.read_to_end(&mut ignore_file_buffer).unwrap();
     let parsed_ignore_file: Value = serde_json::from_str(str::from_utf8(&ignore_file_buffer).unwrap()).unwrap();
     let ignore_list_assets: Vec<MyAsset> = serde_json::from_value(parsed_ignore_file).unwrap();
-    let ignore_list_locations: Vec<String> = ignore_list_assets.into_iter().map(|asset| {
+    let ignore_list_locations: Vec<String> = ignore_list_assets.clone().into_iter().map(|asset| {
         let ignore_asset_location = parse_asset_location(&asset);
         let ignore_asset = Rc::new(RefCell::new(Asset::new(asset.tokenData.clone(), ignore_asset_location)));
         let location_string = ignore_asset.borrow().get_asset_location_string().clone();
         location_string
     }).collect();
     
+    let ignore_list_asset_keys: Vec<String> = ignore_list_assets.into_iter().map(|asset| {
+        let ignore_asset = Rc::new(RefCell::new(Asset::new(asset.tokenData.clone(), None)));
+        let map_key = ignore_asset.borrow().get_map_key();
+        map_key
+    }).collect();
 
     let mut asset_map: HashMap<String, Vec<AssetPointer>> = HashMap::new();
     let mut asset_location_map: HashMap<AssetLocation, Vec<AssetPointer>> = HashMap::new();
@@ -80,11 +88,13 @@ pub fn build_asset_registry(relay: Relay) -> AssetRegistry2 {
         let asset_location = parse_asset_location(&asset);
         let new_asset = Rc::new(RefCell::new(Asset::new(asset.tokenData, asset_location)));
         let map_key = new_asset.borrow().get_map_key();
-        // if ignore_list_locations.contains(&new_asset.borrow().get_asset_location_string()){
-        //     println!("Ignoring asset: {}", map_key);
-        //     println!("asset_location: {:?}", new_asset.borrow().get_asset_location_string());
-        //     continue;
-        // }
+        if ignore_list_asset_keys.contains(&map_key){
+            println!("Ignoring asset: {}", map_key);
+
+            // Remove asset location so it wont be added to xcm adjacent nodes
+            new_asset.borrow_mut().asset_location = None;
+            // continue;
+        }
         asset_map.entry(map_key).or_insert(vec![]).push(new_asset.clone());
 
         if let Some(location) = new_asset.borrow().asset_location.clone() {
