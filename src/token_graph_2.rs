@@ -2593,14 +2593,14 @@ pub fn calculate_v2_dex_swap_formula(dex_pool: &DexPool, input_amount: BigInt) -
         // if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
         //     println!("ERC -> LURPIS failed filter requirement")
         // }
-        println!("FILTER FAILED, removing");
+        // println!("FILTER FAILED, removing");
         return BigInt::from(0)
     }
 
     // if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
     //     println!("ERC -> LURPIS PASSED filter requirement")
     // }
-    println!("FILTER PASSED");
+    // println!("FILTER PASSED");
     
     total_amount_out
 }
