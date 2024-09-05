@@ -2506,17 +2506,27 @@ pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_
     let chain_id = dex_pool.get_chain_id();
     let relay = dex_pool.get_relay();
 
+
+
     match (relay, chain_id) {
         (Relay::Polkadot, 2034) => {
-            println!("Checking filter for HYDRA DX swap");
+            // println!("Checking filter for HYDRA DX swap");
+            let pool_nodes = dex_pool.get_pool_nodes();
+            let input_node = pool_nodes.get(input_index).unwrap();
+            let output_node = pool_nodes.get(output_index).unwrap();
+
             let liquidity_stats = dex_pool.get_liquidity_stats();
             let input_liquidity = liquidity_stats.get(input_index).unwrap();
             let output_liquidity = liquidity_stats.get(output_index).unwrap();
-    
+            // println!(" {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
+            if input_node.borrow().get_local_id() == "0"{
+                println!("Found input erc and output LURPIS {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
+            }
+
             // Trade amount can not be more than 30% of pool token supply
             let max_limit = BigInt::from(30) / BigInt::from(100);
             if (input_amount > input_liquidity * max_limit.clone() || calculated_output_amount > output_liquidity * max_limit) {
-                println!("Failed MAX_INPUT/MAX_OUTPUT filter, removing");
+                // println!("Failed MAX_INPUT/MAX_OUTPUT filter, removing");
                 return false
             } else {
                 true
