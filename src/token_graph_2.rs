@@ -2526,12 +2526,11 @@ pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_
             // println!("Input local ID: '{}', type: {:?}", input_local_id, input_local_id.type_id());
             // println!("Output local ID: '{}', type: {:?}", output_local_id, output_local_id.type_id());
 
-            if input_node.borrow().get_local_id() == "\"0\"" {
+            if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
                 println!("Found input erc and output LURPIS {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
             }
 
             // Trade amount can not be more than 30% of pool token supply
-            let max_limit = BigInt::from(30) / BigInt::from(100);
             if (input_amount > input_liquidity * max_limit.clone() || calculated_output_amount > output_liquidity * max_limit) {
                 // println!("Failed MAX_INPUT/MAX_OUTPUT filter, removing");
                 return false
