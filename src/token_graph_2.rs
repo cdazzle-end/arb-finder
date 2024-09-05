@@ -2511,6 +2511,8 @@ pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_
 
     match (relay, chain_id) {
         (Relay::Polkadot, 2034) => {
+            let max_limit = BigInt::from(30) / BigInt::from(100);
+
             // println!("Checking filter for HYDRA DX swap");
             let pool_nodes = dex_pool.get_pool_nodes();
             let input_node = pool_nodes.get(input_index).unwrap();
@@ -2528,6 +2530,16 @@ pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_
 
             if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
                 println!("Found input erc and output LURPIS {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
+                println!("{} - Input amount", input_amount);
+                println!("{} - Input liqudity", input_liquidity);
+                println!("{} - output amount", calculated_output_amount);
+                println!("{} - output liqudity", output_liquidity);
+                if (input_amount > input_liquidity * max_limit.clone() || calculated_output_amount > output_liquidity * max_limit.clone()) {
+                    // println!("Failed MAX_INPUT/MAX_OUTPUT filter, removing");
+                    println!("REMOVE");
+                } else {
+                    println!("DONT REMOVE");
+                }
             }
 
             // Trade amount can not be more than 30% of pool token supply
