@@ -1,0 +1,154 @@
+[
+  {
+    "node_key": "2030{\"Token2\":\"0\"}",
+    "asset_name": "Polkadot DOT",
+    "path_value": "0.5",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Start",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2030{\"VToken2\":\"0\"}",
+    "asset_name": "Voucher DOT",
+    "path_value": "0.3640182621",
+    "path_type": "Stable",
+    "path_data": {
+      "path_type": "Stable",
+      "lp_id": "0",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2034\"15\"",
+    "asset_name": "Bifrost Voucher DOT",
+    "path_value": "0.3640182621",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Xcm",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [
+        "82673045925",
+        "0"
+      ],
+      "xcm_transfer_reserve_amounts": [
+        "1",
+        "0"
+      ],
+      "xcm_deposit_fee_amounts": [
+        "0",
+        "781717"
+      ],
+      "xcm_deposit_reserve_amounts": [
+        "0",
+        "0"
+      ]
+    }
+  },
+  {
+    "node_key": "2034\"1\"",
+    "asset_name": "H2O",
+    "path_value": "0.074649725294",
+    "path_type": "Omnipool",
+    "path_data": {
+      "path_type": "Omnipool",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2034\"0\"",
+    "asset_name": "Hydration",
+    "path_value": "371.216595854466",
+    "path_type": "Omnipool",
+    "path_data": {
+      "path_type": "Omnipool",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2034\"1000507\"",
+    "asset_name": "GREECE",
+    "path_value": "55.564567002634",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2034\"1000280\"",
+    "asset_name": "china",
+    "path_value": "487.082066497783",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2034\"1000272\"",
+    "asset_name": "0xe98193e998bbe4b894e995bfefbc8ce6b8a9e69a96e59d9ae5ae9a2de788b1e683852f6c6f7665",
+    "path_value": "580.655293307024",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2034\"1000309\"",
+    "asset_name": "LURPIS",
+    "path_value": "33.131151828437",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2034\"5\"",
+    "asset_name": "Polkadot",
+    "path_value": "32.450828419",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  }
+]
