@@ -2508,13 +2508,19 @@ pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_
 
     match (relay, chain_id) {
         (Relay::Polkadot, 2034) => {
+            println!("Checking filter for HYDRA DX swap");
             let liquidity_stats = dex_pool.get_liquidity_stats();
             let input_liquidity = liquidity_stats.get(input_index).unwrap();
             let output_liquidity = liquidity_stats.get(output_index).unwrap();
     
             // Trade amount can not be more than 30% of pool token supply
             let max_limit = BigInt::from(30) / BigInt::from(100);
-            !(input_amount > input_liquidity * max_limit.clone() || calculated_output_amount > output_liquidity * max_limit)
+            if (input_amount > input_liquidity * max_limit.clone() || calculated_output_amount > output_liquidity * max_limit) {
+                println!("Failed MAX_INPUT/MAX_OUTPUT filter, removing");
+                return false
+            } else {
+                true
+            }
         }
         _ => true,
     }
