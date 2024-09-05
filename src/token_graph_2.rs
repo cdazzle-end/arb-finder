@@ -2520,35 +2520,16 @@ pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_
             let input_liquidity = liquidity_stats.get(input_index).unwrap();
             let output_liquidity = liquidity_stats.get(output_index).unwrap();
             // println!(" {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
-            let pool_nodes = dex_pool.get_pool_nodes();
-            let input_node = pool_nodes.get(input_index).unwrap();
-            let output_node = pool_nodes.get(output_index).unwrap();
-            let input_local_id = input_node.borrow().get_local_id();
-            let output_local_id = output_node.borrow().get_local_id();
-
-            // println!("Input local ID: '{}', type: {:?}", input_local_id, input_local_id.type_id());
-            // println!("Output local ID: '{}', type: {:?}", output_local_id, output_local_id.type_id());
-
-            if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
-                // println!("Found input erc and output LURPIS {} | {}", input_node.borrow().get_local_id(), output_node.borrow().get_local_id());
-                // println!("{} - Input amount", input_amount);
-                // println!("{} - Input liqudity", input_liquidity);
-                // println!("{} - output amount", calculated_output_amount);
-                // println!("{} - output liqudity", output_liquidity);
-                if (input_amount > input_liquidity * max_limit.clone() || calculated_output_amount > output_liquidity * max_limit.clone()) {
-                    // println!("Failed MAX_INPUT/MAX_OUTPUT filter, removing");
-                    println!("REMOVE");
-                    return false
-                } else {
-                    println!("DONT REMOVE");
-                    return true
-                }
-            }
+            // let pool_nodes = dex_pool.get_pool_nodes();
+            // let input_node = pool_nodes.get(input_index).unwrap();
+            // let output_node = pool_nodes.get(output_index).unwrap();
+            // let input_local_id = input_node.borrow().get_local_id();
+            // let output_local_id = output_node.borrow().get_local_id();
 
             // Trade amount can not be more than 30% of pool token supply
             if (input_amount > input_liquidity * max_limit.clone() || calculated_output_amount > output_liquidity * max_limit) {
                 // println!("Failed MAX_INPUT/MAX_OUTPUT filter, removing");
-                return false
+                false
             } else {
                 true
             }
@@ -2602,22 +2583,24 @@ pub fn calculate_v2_dex_swap_formula(dex_pool: &DexPool, input_amount: BigInt) -
 
 
     // If swap fails filter, set output to 0
-    if check_filter_requirements(
+    if !check_filter_requirements(
         dex_pool, 
         input_asset_index, 
         output_asset_index, 
         input_amount, 
         total_amount_out.clone()
     ) {
-        if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
-            println!("ERC -> LURPIS failed filter requirement")
-        }
+        // if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
+        //     println!("ERC -> LURPIS failed filter requirement")
+        // }
+        println!("FILTER FAILED, removing");
         return BigInt::from(0)
     }
 
-    if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
-        println!("ERC -> LURPIS PASSED filter requirement")
-    }
+    // if input_node.borrow().get_local_id() == "\"1000272\"" && output_node.borrow().get_local_id() == "\"1000309\"" {
+    //     println!("ERC -> LURPIS PASSED filter requirement")
+    // }
+    println!("FILTER PASSED");
     
     total_amount_out
 }
