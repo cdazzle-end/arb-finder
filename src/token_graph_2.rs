@@ -2537,8 +2537,10 @@ pub fn check_filter_requirements(dex_pool: &DexPool, input_index: usize, output_
                 if (input_amount > input_liquidity * max_limit.clone() || calculated_output_amount > output_liquidity * max_limit.clone()) {
                     // println!("Failed MAX_INPUT/MAX_OUTPUT filter, removing");
                     println!("REMOVE");
+                    return false
                 } else {
                     println!("DONT REMOVE");
+                    return true
                 }
             }
 
