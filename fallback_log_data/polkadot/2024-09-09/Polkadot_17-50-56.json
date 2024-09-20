@@ -1,0 +1,30 @@
+[
+  {
+    "node_key": "2030{\"VToken2\":\"0\"}",
+    "asset_name": "Voucher DOT",
+    "path_value": "0.4329403897",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Start",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2030{\"Token2\":\"0\"}",
+    "asset_name": "Polkadot DOT",
+    "path_value": "0.5918329098",
+    "path_type": "Stable",
+    "path_data": {
+      "path_type": "Stable",
+      "lp_id": "0",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  }
+]

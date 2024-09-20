@@ -1,0 +1,220 @@
+[
+  {
+    "node_key": "2030{\"Token2\":\"0\"}",
+    "asset_name": "Polkadot DOT",
+    "path_value": "0.5",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Start",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2030{\"VToken2\":\"0\"}",
+    "asset_name": "Voucher DOT",
+    "path_value": "0.3636540122",
+    "path_type": "Stable",
+    "path_data": {
+      "path_type": "Stable",
+      "lp_id": "0",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"29085784439601774464560083082574142143\"",
+    "asset_name": "Bifrost Voucher DOT",
+    "path_value": "0.3636540122",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Xcm",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [
+        "82481045925",
+        "0"
+      ],
+      "xcm_transfer_reserve_amounts": [
+        "27459621",
+        "0"
+      ],
+      "xcm_deposit_fee_amounts": [
+        "0",
+        "10566189"
+      ],
+      "xcm_deposit_reserve_amounts": [
+        "0",
+        "0"
+      ]
+    }
+  },
+  {
+    "node_key": "2004\"GLMR\"",
+    "asset_name": "GLMR",
+    "path_value": "11.412633403224870235",
+    "path_type": "DexV3",
+    "path_data": {
+      "path_type": "uni3",
+      "lp_id": "0x17c19aeff4cabfe76633a20e6b0ed903df48dd56",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"0x2Dfc76901bB2ac2A5fA5fc479590A490BBB10a5F\"",
+    "asset_name": "Cougar Token",
+    "path_value": "530442.493373070623815463",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0x22e1e77e99e1ef13fd379c37f0f4736c6818830c",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"GLMR\"",
+    "asset_name": "GLMR",
+    "path_value": "28.632491689229077601",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0x54184eabc2a13830931601cc31c391c119784e3d",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"0x8f552a71EFE5eeFc207Bf75485b356A0b3f01eC9\"",
+    "asset_name": "USD Coin",
+    "path_value": "35.026961",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0x9bfcf685e641206115dadc0c9ab17181e1d4975c",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"110021739665376159354538090254163045594\"",
+    "asset_name": "Acala Dollar",
+    "path_value": "14.065794820576",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0x12e2302e94b5cb1ba2ec01e4fee12a82894cc284",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"AUSD\"}}",
+    "asset_name": "aUSD SEED",
+    "path_value": "14.065794820576",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Xcm",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [
+        "8471675474163200",
+        "0"
+      ],
+      "xcm_transfer_reserve_amounts": [
+        "4232247708",
+        "0"
+      ],
+      "xcm_deposit_fee_amounts": [
+        "0",
+        "1126108730"
+      ],
+      "xcm_deposit_reserve_amounts": [
+        "0",
+        "0"
+      ]
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"ACA\"}}",
+    "asset_name": "Acala",
+    "path_value": "80.587113617839",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2012\"108\"",
+    "asset_name": "ACA",
+    "path_value": "80.587113617839",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Xcm",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [
+        "2660002411",
+        "0"
+      ],
+      "xcm_transfer_reserve_amounts": [
+        "0",
+        "0"
+      ],
+      "xcm_deposit_fee_amounts": [
+        "0",
+        "117647058823"
+      ],
+      "xcm_deposit_reserve_amounts": [
+        "0",
+        "0"
+      ]
+    }
+  },
+  {
+    "node_key": "2012\"1\"",
+    "asset_name": "PARA",
+    "path_value": "2478.005472457364",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2012\"101\"",
+    "asset_name": "DOT",
+    "path_value": "1.1223677256",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  }
+]

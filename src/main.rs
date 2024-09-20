@@ -81,7 +81,8 @@ async fn main() {
                 } else {
                     BigDecimal::from(1) // Default value if no amount is provided
                 };
-                target_search(asset_key.to_string(), asset_key.to_string(), input_amount_bd, relay).await;
+                let xcm_start_nodes = true;
+                target_search(asset_key.to_string(), asset_key.to_string(), input_amount_bd, relay, xcm_start_nodes).await;
             },
             
             /// Run 3 searches from relay node to relay node with 3 different input values

@@ -1,0 +1,56 @@
+[
+  {
+    "node_key": "2004\"29085784439601774464560083082574142143\"",
+    "asset_name": "Bifrost Voucher DOT",
+    "path_value": "0.4329403897",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Start",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2030{\"VToken2\":\"0\"}",
+    "asset_name": "Voucher DOT",
+    "path_value": "0.4329403897",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Xcm",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [
+        "8471675474163200",
+        "0"
+      ],
+      "xcm_transfer_reserve_amounts": [
+        "1",
+        "0"
+      ],
+      "xcm_deposit_fee_amounts": [
+        "0",
+        "82481045925"
+      ],
+      "xcm_deposit_reserve_amounts": [
+        "0",
+        "26989679"
+      ]
+    }
+  },
+  {
+    "node_key": "2030{\"Token2\":\"0\"}",
+    "asset_name": "Polkadot DOT",
+    "path_value": "0.5881433993",
+    "path_type": "Stable",
+    "path_data": {
+      "path_type": "Stable",
+      "lp_id": "0",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  }
+]

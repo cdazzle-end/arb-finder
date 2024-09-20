@@ -75,6 +75,7 @@ pub async fn run_async_default_searches(relay: Relay){
         ("medium", BigDecimal::from_f64(2.0).unwrap()),
         ("big", BigDecimal::from_f64(5.0).unwrap()),
     ];
+    let xcm_start_nodes = true;
 
     // Call target search with different inputs, return size and search result
     let handles: Vec<_> = inputs
@@ -85,7 +86,7 @@ pub async fn run_async_default_searches(relay: Relay){
             let relay = relay.clone();
 
             task::spawn(async move {
-                let result = target_search(start_key, destination_key, input, relay).await;
+                let result = target_search(start_key, destination_key, input, relay, xcm_start_nodes).await;
                 (size, result)
             })
         })
@@ -118,7 +119,8 @@ pub async fn run_async_default_searches(relay: Relay){
 /// 
 /// Log results in target folder
 pub async fn run_and_log_target_search(start_key: String, destination_key: String, input_amount: BigDecimal, relay: Relay){
-    let search_result: IsolatedSearchResult = target_search(start_key.clone(), destination_key, input_amount, relay).await;
+    let xcm_start_nodes = true;
+    let search_result: IsolatedSearchResult = target_search(start_key.clone(), destination_key, input_amount, relay, xcm_start_nodes).await;
 
     let start_asset = utils::get_asset_by_asset_key(start_key.clone(), relay);
 
@@ -132,7 +134,8 @@ pub async fn run_and_log_target_search(start_key: String, destination_key: Strin
 /// 
 /// Log results in fallback folder
 pub async fn run_and_log_fallback_search(relay: Relay, start_key: String, destination_key: String, input_amount: BigDecimal){
-    let search_result: IsolatedSearchResult = target_search(start_key.clone(), destination_key.clone(), input_amount, relay).await;
+    let xcm_start_nodes = false;
+    let search_result: IsolatedSearchResult = target_search(start_key.clone(), destination_key.clone(), input_amount, relay, xcm_start_nodes).await;
 
     let destination_asset = utils::get_asset_by_asset_key(destination_key.clone(), relay);
 
@@ -148,12 +151,20 @@ pub async fn run_and_log_fallback_search(relay: Relay, start_key: String, destin
 /// - Get's all start nodes from start_key
 /// - Calls isolated_search for each start node with specified input
 /// - return IsolatedSearchResult for highest value path
-pub async fn target_search(start_key: String, destination_key: String, input_amount: BigDecimal, relay: Relay) -> IsolatedSearchResult {
+/// 
+/// execute_with_xcm_start_nodes to use all start nodes, or just designated start node
+pub async fn target_search(start_key: String, destination_key: String, input_amount: BigDecimal, relay: Relay, execute_with_xcm_start_nodes: bool) -> IsolatedSearchResult {
     let start_asset = utils::get_asset_by_asset_key(start_key.clone(), relay);
     let xcm_assets: Vec<MyAsset> = utils::get_assets_at_location(start_asset.clone(), relay);
 
+    let start_nodes = if execute_with_xcm_start_nodes {
+        xcm_assets.clone()
+    } else {
+        vec![start_asset.clone()]
+    };
+
     // Run search from each start node, collect each task
-    let handles = xcm_assets.into_iter().map(|asset| {
+    let handles = start_nodes.into_iter().map(|asset| {
         let node_key = utils::get_asset_key(asset);
         let relay_clone = relay.clone();
         let dest_key = destination_key.clone();
