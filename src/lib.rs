@@ -155,7 +155,7 @@ pub async fn run_and_log_fallback_search(relay: Relay, start_key: String, destin
 /// execute_with_xcm_start_nodes to use all start nodes, or just designated start node
 pub async fn target_search(start_key: String, destination_key: String, input_amount: BigDecimal, relay: Relay, execute_with_xcm_start_nodes: bool) -> IsolatedSearchResult {
     let start_asset = utils::get_asset_by_asset_key(start_key.clone(), relay);
-    let xcm_assets: Vec<MyAsset> = utils::get_assets_at_location(start_asset.clone(), relay);
+    let mut xcm_assets: Vec<MyAsset> = utils::get_assets_at_location(start_asset.clone(), relay);
 
     let start_nodes = if execute_with_xcm_start_nodes {
         xcm_assets.clone()
