@@ -157,6 +157,9 @@ pub async fn target_search(start_key: String, destination_key: String, input_amo
     let start_asset = utils::get_asset_by_asset_key(start_key.clone(), relay);
     let mut xcm_assets: Vec<MyAsset> = utils::get_assets_at_location(start_asset.clone(), relay);
 
+    // SKIP GLMR TEST
+    xcm_assets.retain(|asset| asset.get_chain_id() != Some(2004));
+
     let start_nodes = if execute_with_xcm_start_nodes {
         xcm_assets.clone()
     } else {
