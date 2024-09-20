@@ -691,7 +691,7 @@ impl TokenGraph2{
 
                             adjacent_pair.xcm_node.borrow_mut().path_datas = current_node.borrow().path_datas.clone();
                             adjacent_pair.xcm_node.borrow_mut().path_datas.push(new_path_data);
-                            if !current_path_contains_adjacent_node && !is_destination_node{
+                            if !current_path_contains_adjacent_node && !is_destination_node {
                                 node_queue.push_back(Rc::clone(&adjacent_pair.xcm_node));
                             }
                             // println!("****************************************");
