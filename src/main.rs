@@ -93,7 +93,7 @@ async fn main() {
             "search_polkadot_sync" => {
                 println!("Running polkadot search SYNC. One by one");
                 let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
-                search_default_sync(Relay::Polkadot);
+                search_default_sync(Relay::Polkadot).await;
             },
             "p_1" => {
                 let asset_key = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}".to_string();
