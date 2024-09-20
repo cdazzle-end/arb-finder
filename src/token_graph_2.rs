@@ -568,11 +568,17 @@ impl TokenGraph2{
                         let xcm_node = adjacent_pair.xcm_node.clone();
                         let mut xcm_input_amount = current_node.borrow().best_path_value.clone();
                         
+                        let xcm_node_chain = xcm_node.borrow().get_chain_id();
                         // println!("****************************************");
                         // println!("Xcm transferring {} -> {}", current_node.borrow().asset_key, adjacent_pair.xcm_node.borrow().asset_key);
                         // Ignore when adjacent node is the current node
                         if current_node.as_ptr().eq(&xcm_node.as_ptr()){
                             // println!("SKIP");
+                            continue;
+                        }
+
+                        // Skip glmr test
+                        if xcm_node_chain == 2004{
                             continue;
                         }
 
