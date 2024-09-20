@@ -510,7 +510,7 @@ impl LiqPoolRegistry2{
                                 let dex_v3_pool: DexV3Data = create_dex_v3_pool(&lp_data, asset_registry, relay.clone());
                                 formatted_lps.push(LiquidityPool::DexV3(dex_v3_pool));
                             } else {
-                                println!("Filter GLMR erc pool")
+                                // println!("Filter GLMR erc pool")
                             }
 
                             None
@@ -534,7 +534,7 @@ impl LiqPoolRegistry2{
                                     let glmr_dex: DexData = create_dex_pool(&lp_data, asset_registry, relay.clone());
                                     formatted_lps.push(LiquidityPool::Dex(glmr_dex));
                                 } else {
-                                    println!("Filter GLMR erc pool")
+                                    // println!("Filter GLMR erc pool")
                                 }
 
                             } else {

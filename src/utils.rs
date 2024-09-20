@@ -90,7 +90,7 @@ pub fn build_asset_registry(relay: Relay) -> AssetRegistry2 {
         let new_asset = Rc::new(RefCell::new(Asset::new(asset.tokenData, asset_location)));
         let map_key = new_asset.borrow().get_map_key();
         if ignore_list_asset_keys.contains(&map_key){
-            println!("Ignoring asset: {}", map_key);
+            // println!("Ignoring asset: {}", map_key);
 
             // Remove asset location so it wont be added to xcm adjacent nodes
             new_asset.borrow_mut().asset_location = None;
