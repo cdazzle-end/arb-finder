@@ -442,7 +442,7 @@ impl LiqPoolRegistry2{
     }
 
     pub fn build_liqpool_registry_polkadot(asset_registry: &AssetRegistry2) -> LiqPoolRegistry2{
-        let chains = vec![ "aca", "bnc_polkadot", "hdx", "para"];
+        let chains = vec![ "aca", "bnc_polkadot", "glmr", "hdx", "para"];
         let relay = Relay::Polkadot;
         let mut parsed_files = chains
                 .into_iter()
