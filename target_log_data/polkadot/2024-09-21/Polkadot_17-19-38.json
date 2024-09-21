@@ -1,0 +1,180 @@
+[
+  {
+    "node_key": "2012\"101\"",
+    "asset_name": "DOT",
+    "path_value": "0.2",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Start",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2012\"1\"",
+    "asset_name": "PARA",
+    "path_value": "484.52186344922",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2012\"114\"",
+    "asset_name": "GLMR",
+    "path_value": "4.897243306365537629",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"GLMR\"",
+    "asset_name": "GLMR",
+    "path_value": "4.897243306365537629",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Xcm",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [
+        "175646538461",
+        "0"
+      ],
+      "xcm_transfer_reserve_amounts": [
+        "1775407219379274",
+        "0"
+      ],
+      "xcm_deposit_fee_amounts": [
+        "0",
+        "3431370000000000"
+      ],
+      "xcm_deposit_reserve_amounts": [
+        "0",
+        "0"
+      ]
+    }
+  },
+  {
+    "node_key": "2004\"0x2Dfc76901bB2ac2A5fA5fc479590A490BBB10a5F\"",
+    "asset_name": "Cougar Token",
+    "path_value": "244823.830635587621745345",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0x22e1e77e99e1ef13fd379c37f0f4736c6818830c",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"GLMR\"",
+    "asset_name": "GLMR",
+    "path_value": "16.869367977782339758",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0x54184eabc2a13830931601cc31c391c119784e3d",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"224821240862170613278369189818311486111\"",
+    "asset_name": "Acala",
+    "path_value": "71.643859230881",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0xb83c50ea82c10ac598ba1ffc0c0296978c29c1e2",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"ACA\"}}",
+    "asset_name": "Acala",
+    "path_value": "71.643859230881",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Xcm",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [
+        "8471675474163200",
+        "0"
+      ],
+      "xcm_transfer_reserve_amounts": [
+        "10",
+        "0"
+      ],
+      "xcm_deposit_fee_amounts": [
+        "0",
+        "2660002411"
+      ],
+      "xcm_deposit_reserve_amounts": [
+        "0",
+        "0"
+      ]
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"AUSD\"}}",
+    "asset_name": "aUSD SEED",
+    "path_value": "13.007776212596",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"LiquidCrowdloan\":\"13\"}}",
+    "asset_name": "Liquid Crowdloan DOT",
+    "path_value": "1.0399233547",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}",
+    "asset_name": "Polkadot",
+    "path_value": "1.0468300035",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  }
+]
