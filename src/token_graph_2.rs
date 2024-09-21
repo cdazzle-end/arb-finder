@@ -578,9 +578,9 @@ impl TokenGraph2{
                         }
 
                         // Skip glmr test
-                        if xcm_node_chain == 2004{
-                            continue;
-                        }
+                        // if xcm_node_chain == 2004{
+                        //     continue;
+                        // }
 
                         // ******** Transfer fee data ********
                         // Transfer Data: (fee) When fee asset is native, subtract fee from output amount

@@ -1,0 +1,58 @@
+[
+  {
+    "node_key": "2030{\"Token2\":\"0\"}",
+    "asset_name": "Polkadot DOT",
+    "path_value": "0.2",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Start",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2030{\"VSToken2\":\"0\"}",
+    "asset_name": "Voucher Slot DOT",
+    "path_value": "0.3993890376",
+    "path_type": "Stable",
+    "path_data": {
+      "path_type": "Stable",
+      "lp_id": "4",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2030{\"VToken2\":\"0\"}",
+    "asset_name": "Voucher DOT",
+    "path_value": "0.1463982159",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2030{\"Token2\":\"0\"}",
+    "asset_name": "Polkadot DOT",
+    "path_value": "0.2020639889",
+    "path_type": "Stable",
+    "path_data": {
+      "path_type": "Stable",
+      "lp_id": "0",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  }
+]
