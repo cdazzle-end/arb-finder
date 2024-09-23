@@ -53,34 +53,34 @@
       ]
     }
   },
-  {
-    "node_key": "2004\"GLMR\"",
-    "asset_name": "GLMR",
-    "path_value": "4.433298610055541385",
-    "path_type": "DexV3",
-    "path_data": {
-      "path_type": "uni3",
-      "lp_id": "0x17c19aeff4cabfe76633a20e6b0ed903df48dd56",
-      "xcm_transfer_fee_amounts": [],
-      "xcm_transfer_reserve_amounts": [],
-      "xcm_deposit_fee_amounts": [],
-      "xcm_deposit_reserve_amounts": []
-    }
-  },
-  {
-    "node_key": "2004\"0x2Dfc76901bB2ac2A5fA5fc479590A490BBB10a5F\"",
-    "asset_name": "Cougar Token",
-    "path_value": "201320.012744228600476361",
-    "path_type": "Dex",
-    "path_data": {
+    {
+      "node_key": "2004\"GLMR\"",
+      "asset_name": "GLMR",
+      "path_value": "4.433298610055541385",
+      "path_type": "DexV3",
+      "path_data": {
+        "path_type": "uni3",
+        "lp_id": "0x17c19aeff4cabfe76633a20e6b0ed903df48dd56",
+        "xcm_transfer_fee_amounts": [],
+        "xcm_transfer_reserve_amounts": [],
+        "xcm_deposit_fee_amounts": [],
+        "xcm_deposit_reserve_amounts": []
+      }
+    },
+    {
+      "node_key": "2004\"0x2Dfc76901bB2ac2A5fA5fc479590A490BBB10a5F\"",
+      "asset_name": "Cougar Token",
+      "path_value": "201320.012744228600476361",
       "path_type": "Dex",
-      "lp_id": "0x22e1e77e99e1ef13fd379c37f0f4736c6818830c",
-      "xcm_transfer_fee_amounts": [],
-      "xcm_transfer_reserve_amounts": [],
-      "xcm_deposit_fee_amounts": [],
-      "xcm_deposit_reserve_amounts": []
-    }
-  },
+      "path_data": {
+        "path_type": "Dex",
+        "lp_id": "0x22e1e77e99e1ef13fd379c37f0f4736c6818830c",
+        "xcm_transfer_fee_amounts": [],
+        "xcm_transfer_reserve_amounts": [],
+        "xcm_deposit_fee_amounts": [],
+        "xcm_deposit_reserve_amounts": []
+      }
+    },
   {
     "node_key": "2004\"GLMR\"",
     "asset_name": "GLMR",
