@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::cell::RefCell;
 use std::rc::Rc;
-use crate::constants;
+use crate::{constants, MOONBEAM_IGNORE_LIST};
 use crate::asset_registry_2::{AssetRegistry2, Asset};
 // use crate::token::{Token, AssetKeyType, TokenData};
 
@@ -530,7 +530,12 @@ impl LiqPoolRegistry2{
                                         asset_not_registered = true;
                                     }
                                 });
-                                if !asset_not_registered{
+                                let filtered_lp: bool = MOONBEAM_IGNORE_LIST.iter().any(|&x| x == lp_data.contractAddress.clone().unwrap());
+                                if filtered_lp{
+                                    println!("FILTERED MOONBEAM LP")
+                                }
+
+                                if !asset_not_registered && !filtered_lp{
                                     let glmr_dex: DexData = create_dex_pool(&lp_data, asset_registry, relay.clone());
                                     formatted_lps.push(LiquidityPool::Dex(glmr_dex));
                                 } else {
