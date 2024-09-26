@@ -14,6 +14,7 @@ pub const POLKADOT_ASSET_CHAINS: &'static [&'static str] = &["aca", "bnc_polkado
 pub const POLKADOT_START_NODE: &str = "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}"; // Acala node
 pub const KUSAMA_START_NODE: &str = "2000{\"NativeAssetId\":{\"Token\":\"KSM\"}}"; // Karura node
 
+// Glmr lps are filtered in asset registry by setting liquidity stats to zero
 pub const MOONBEAM_IGNORE_LIST: &'static [&'static str] = &[
-    "0x54184eabc2a13830931601cc31c391c119784e3d", // MyTradeLp
+    // "0x54184eabc2a13830931601cc31c391c119784e3d", // MyTradeLp
 ];
