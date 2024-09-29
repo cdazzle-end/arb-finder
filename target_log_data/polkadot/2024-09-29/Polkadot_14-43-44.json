@@ -1,0 +1,180 @@
+[
+  {
+    "node_key": "2030{\"Token2\":\"0\"}",
+    "asset_name": "Polkadot DOT",
+    "path_value": "0.2",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Start",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2030{\"VToken2\":\"0\"}",
+    "asset_name": "Voucher DOT",
+    "path_value": "0.1439185965",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"29085784439601774464560083082574142143\"",
+    "asset_name": "Bifrost Voucher DOT",
+    "path_value": "0.1439185965",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Xcm",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [
+        "82481045925",
+        "0"
+      ],
+      "xcm_transfer_reserve_amounts": [
+        "28610684",
+        "0"
+      ],
+      "xcm_deposit_fee_amounts": [
+        "0",
+        "8471775482680900"
+      ],
+      "xcm_deposit_reserve_amounts": [
+        "0",
+        "1"
+      ]
+    }
+  },
+  {
+    "node_key": "2004\"GLMR\"",
+    "asset_name": "GLMR",
+    "path_value": "4.433295800681957801",
+    "path_type": "DexV3",
+    "path_data": {
+      "path_type": "uni3",
+      "lp_id": "0x17c19aeff4cabfe76633a20e6b0ed903df48dd56",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"0x2Dfc76901bB2ac2A5fA5fc479590A490BBB10a5F\"",
+    "asset_name": "Cougar Token",
+    "path_value": "200607.044459910047379623",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0xbc5f161a5bef1352a6108fb5d19dc597cbfd8f0e",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"GLMR\"",
+    "asset_name": "GLMR",
+    "path_value": "14.440813258280178863",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0x54184eabc2a13830931601cc31c391c119784e3d",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"224821240862170613278369189818311486111\"",
+    "asset_name": "Acala",
+    "path_value": "49.903087765608",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0xb83c50ea82c10ac598ba1ffc0c0296978c29c1e2",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"ACA\"}}",
+    "asset_name": "Acala",
+    "path_value": "49.903087765608",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Xcm",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [
+        "2130519224163200",
+        "0"
+      ],
+      "xcm_transfer_reserve_amounts": [
+        "10",
+        "0"
+      ],
+      "xcm_deposit_fee_amounts": [
+        "0",
+        "2660002411"
+      ],
+      "xcm_deposit_reserve_amounts": [
+        "0",
+        "0"
+      ]
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"AUSD\"}}",
+    "asset_name": "aUSD SEED",
+    "path_value": "9.037309155216",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"LDOT\"}}",
+    "asset_name": "Liquid DOT",
+    "path_value": "4.6295940604",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}",
+    "asset_name": "Polkadot",
+    "path_value": "0.717796667",
+    "path_type": "Stable",
+    "path_data": {
+      "path_type": "Stable",
+      "lp_id": "0",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  }
+]
