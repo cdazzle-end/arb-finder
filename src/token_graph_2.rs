@@ -739,9 +739,11 @@ impl TokenGraph2{
                             
                             let dex_type = dex_pool.get_dex_type();
                             let pool_id = dex_pool.get_pool_id();
+                            // println!("Pool ID: {}", pool_id.clone().unwrap());
+                            // println!("Dex type: {}", dex_type.clone().unwrap());
                             let dex_type = match dex_type{
                                 Some(dex_id) => {
-                                    if dex_id.contains("solar") || dex_id.contains("zenlink"){ // All normal dexes are set to solar
+                                    if dex_id.contains("V2"){ // All normal dexes are set to solar
                                         "Dex".to_string()
                                     } else if dex_id.contains("omnipool"){ // Need this for hydraDx
                                         "Omnipool".to_string()
