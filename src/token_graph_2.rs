@@ -1214,6 +1214,7 @@ impl TokenGraph2{
         // println!("Finding immediate edge on any chain...");
         // Print name of primary asset
         println!("Primary asset: {}", primary_node.borrow().get_asset_key_and_symbol());
+        println!("Adjacent asset: {}", adjacent_node.borrow().get_asset_key_and_symbol());
         let primary_asset_location = primary_node.borrow().get_asset_location();
         let mut all_primary_asset_nodes = vec![];
 
