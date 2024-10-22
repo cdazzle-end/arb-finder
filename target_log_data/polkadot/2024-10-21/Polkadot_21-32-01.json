@@ -1,0 +1,140 @@
+[
+  {
+    "node_key": "2004\"42259045809535163221576417993425387648\"",
+    "asset_name": "xcDOT",
+    "path_value": "1",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Start",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"GLMR\"",
+    "asset_name": "GLMR",
+    "path_value": "25.947111311347523419",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0xb76543ab05b208ee4d0eccc435dfb6ef00d96142",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"0x8f552a71EFE5eeFc207Bf75485b356A0b3f01eC9\"",
+    "asset_name": "USD Coin",
+    "path_value": "40.429128",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0x9bfcf685e641206115dadc0c9ab17181e1d4975c",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"GLMR\"",
+    "asset_name": "GLMR",
+    "path_value": "26.023423366898879065",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0x1eb802dfcc9e6d0b553c99c461f27d4000b46cef",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2004\"224821240862170613278369189818311486111\"",
+    "asset_name": "Acala",
+    "path_value": "83.962610532365",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": "0xb83c50ea82c10ac598ba1ffc0c0296978c29c1e2",
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"ACA\"}}",
+    "asset_name": "Acala",
+    "path_value": "83.962610532365",
+    "path_type": "Xcm",
+    "path_data": {
+      "path_type": "Xcm",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [
+        "2130519224163200",
+        "0"
+      ],
+      "xcm_transfer_reserve_amounts": [
+        "7584003629",
+        "0"
+      ],
+      "xcm_deposit_fee_amounts": [
+        "0",
+        "2660002411"
+      ],
+      "xcm_deposit_reserve_amounts": [
+        "0",
+        "0"
+      ]
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"AUSD\"}}",
+    "asset_name": "aUSD SEED",
+    "path_value": "14.969623450357",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"LiquidCrowdloan\":\"13\"}}",
+    "asset_name": "Liquid Crowdloan DOT",
+    "path_value": "1.1691514468",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  },
+  {
+    "node_key": "2000{\"NativeAssetId\":{\"Token\":\"DOT\"}}",
+    "asset_name": "Polkadot",
+    "path_value": "1.1774110555",
+    "path_type": "Dex",
+    "path_data": {
+      "path_type": "Dex",
+      "lp_id": null,
+      "xcm_transfer_fee_amounts": [],
+      "xcm_transfer_reserve_amounts": [],
+      "xcm_deposit_fee_amounts": [],
+      "xcm_deposit_reserve_amounts": []
+    }
+  }
+]

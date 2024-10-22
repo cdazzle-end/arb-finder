@@ -51,16 +51,17 @@ pub fn build_asset_registry_old(relay: Relay) -> AssetRegistry2 {
 /// - Ignore list will remove location property from asset
 /// - The asset can still be traded, just as if it was a non xcm token
 pub fn build_asset_registry(relay: Relay) -> AssetRegistry2 {
-    let all_assets_file_location = match relay {
-        Relay::Polkadot => format!("{}{}", constants::ASSET_REGISTRY_FOLDER, constants::ALL_POLKADOT_ASSETS),
-        Relay::Kusama => format!("{}{}", constants::ASSET_REGISTRY_FOLDER, constants::ALL_KUSAMA_ASSETS)
-    };
-    let asset_file_path: &Path = Path::new(&all_assets_file_location);
-    let mut asset_file_buffer = vec![];
-    let mut asset_file = File::open(asset_file_path).unwrap();
-    asset_file.read_to_end(&mut asset_file_buffer);
+    // let all_assets_file_location = match relay {
+    //     Relay::Polkadot => format!("{}{}", constants::ASSET_REGISTRY_FOLDER, constants::ALL_POLKADOT_ASSETS),
+    //     Relay::Kusama => format!("{}{}", constants::ASSET_REGISTRY_FOLDER, constants::ALL_KUSAMA_ASSETS)
+    // };
+    // let asset_file_path: &Path = Path::new(&all_assets_file_location);
+    // let mut asset_file_buffer = vec![];
+    // let mut asset_file = File::open(asset_file_path).unwrap();
+    // asset_file.read_to_end(&mut asset_file_buffer);
 
-    let parsed_assets: Vec<MyAsset> = serde_json::from_str(str::from_utf8(&asset_file_buffer).unwrap()).unwrap();
+    // let parsed_assets: Vec<MyAsset> = serde_json::from_str(str::from_utf8(&asset_file_buffer).unwrap()).unwrap();
+    let parsed_assets: Vec<MyAsset> = get_asset_registry(relay);
     println!("Number of parsed assets: {}", parsed_assets.len());
 
     let ignore_file_path = constants::ASSET_IGNORE_LIST;
@@ -87,10 +88,7 @@ pub fn build_asset_registry(relay: Relay) -> AssetRegistry2 {
 
     for asset in parsed_assets{
 
-        // Skip PARA assets
-        if relay == Relay::Polkadot && asset.get_chain_id().unwrap() == 2012{
-            continue;
-        }
+
         let asset_location = parse_asset_location(&asset);
         let new_asset = Rc::new(RefCell::new(Asset::new(asset.tokenData, asset_location)));
         let map_key = new_asset.borrow().get_map_key();
@@ -132,7 +130,13 @@ pub fn get_asset_registry(relay: Relay) -> Vec<MyAsset> {
     let mut file = File::open(path).unwrap();
     file.read_to_end(&mut buf);
     
-    let parsed_assets: Vec<MyAsset> = serde_json::from_str(str::from_utf8(&buf).unwrap()).unwrap();
+    let mut parsed_assets: Vec<MyAsset> = serde_json::from_str(str::from_utf8(&buf).unwrap()).unwrap();
+
+    // Skip PARA assets
+    if relay == Relay::Polkadot{
+        parsed_assets.retain(|asset| asset.get_chain_id().unwrap() != 2012);
+    }
+
     parsed_assets
 }
 
