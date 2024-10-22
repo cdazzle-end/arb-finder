@@ -125,7 +125,9 @@ impl AssetRegistry2{
     }
 
     pub fn build_asset_registry_polkadot(relay: Relay) -> AssetRegistry2{
-        let chains = vec!["aca", "bnc_polkadot", "glmr", "hdx", "para", "other_polkadot", "glmr_evm", "asset_hub_polkadot"];
+
+        let chains = vec!["aca", "bnc_polkadot", "glmr", "hdx", "other_polkadot", "glmr_evm", "asset_hub_polkadot"];
+        // let chains = vec!["aca", "bnc_polkadot", "glmr", "hdx", "para", "other_polkadot", "glmr_evm", "asset_hub_polkadot"];
         let parsed_files = chains
             .into_iter()
             .map(|chain| {
