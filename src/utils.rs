@@ -86,6 +86,11 @@ pub fn build_asset_registry(relay: Relay) -> AssetRegistry2 {
     let mut asset_location_map: HashMap<AssetLocation, Vec<AssetPointer>> = HashMap::new();
 
     for asset in parsed_assets{
+
+        // Skip PARA assets
+        if relay == Relay::Polkadot && asset.get_chain_id().unwrap() == 2012{
+            continue;
+        }
         let asset_location = parse_asset_location(&asset);
         let new_asset = Rc::new(RefCell::new(Asset::new(asset.tokenData, asset_location)));
         let map_key = new_asset.borrow().get_map_key();

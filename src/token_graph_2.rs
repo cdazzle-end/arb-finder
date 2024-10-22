@@ -1213,24 +1213,9 @@ impl TokenGraph2{
         // Get fee asset location, get all assets at that location.
         // println!("Finding immediate edge on any chain...");
         // Print name of primary asset
-        println!("Primary asset: {}", primary_node.borrow().get_asset_key_and_symbol());
-        println!("Adjacent asset: {}", adjacent_node.borrow().get_asset_key_and_symbol());
-        let primary_asset_location = primary_node.borrow().get_asset_location();
-        let mut all_primary_asset_nodes = vec![];
-
-        // REVIEW Adding this case for when primary asset doesn't have location. Only experienced with PARA, and it crashes execution.
-        // If primary asset location returns none, then all primary asset nodes will be an array of just the primary asset. Else it will get all the other asset nodes
-        match primary_asset_location {
-            None => {
-                all_primary_asset_nodes = vec![Rc::clone(&primary_node)];
-            },
-            Some(location) => {
-                let all_primary_assets = self.asset_registry.get_assets_at_location(location);
-                all_primary_asset_nodes = all_primary_assets.iter().map(|asset| self.get_node(asset.borrow().get_map_key())).collect::<Vec<GraphNodePointer>>();
-            }
-        }
-
-        // let all_primary_asset_nodes = all_primary_assets.iter().map(|asset| self.get_node(asset.borrow().get_map_key())).collect::<Vec<GraphNodePointer>>();
+        let primary_asset_location = primary_node.borrow().get_asset_location().unwrap();
+        let all_primary_assets = self.asset_registry.get_assets_at_location(primary_asset_location);
+        let all_primary_asset_nodes = all_primary_assets.iter().map(|asset| self.get_node(asset.borrow().get_map_key())).collect::<Vec<GraphNodePointer>>();
 
         // Get current node location and all assets at that location
         let adjacent_node_location = adjacent_node.borrow().get_asset_location().unwrap();
